@@ -1,18 +1,9 @@
 package com.adminitions.entities;
 
-public class Faculty {
-    private int id;
+public class Faculty extends Entity {
     private String name;
     private int budgetSeats;
     private int totalSeats;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
