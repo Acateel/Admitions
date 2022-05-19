@@ -28,4 +28,13 @@ public class Faculty extends Entity {
     public void setTotalSeats(int totalSeats) {
         this.totalSeats = totalSeats;
     }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "name='" + name + '\'' +
+                ", budgetSeats=" + budgetSeats +
+                ", totalSeats=" + totalSeats +
+                '}';
+    }
 }
