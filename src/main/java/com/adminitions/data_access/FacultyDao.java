@@ -28,9 +28,10 @@ public class FacultyDao extends BaseDao<Faculty> {
             "select * from faculties where id=?";
     private static final String SQL_INSERT =
             "INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES (?, ?, ?);";
-
     private static final String SQL_DELETE_BY_ID =
             "delete from faculties where id=?;";
+    private static final String SQL_DELETE_BY_NAME =
+            "delete from faculties where faculty_name=?;";
 
     public FacultyDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -58,7 +59,7 @@ public class FacultyDao extends BaseDao<Faculty> {
     }
 
     @Override
-    Faculty findEntityById(int id) throws DaoException {
+    public Faculty findEntityById(int id) throws DaoException {
         Faculty faculty;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -79,12 +80,27 @@ public class FacultyDao extends BaseDao<Faculty> {
     }
 
     @Override
-    boolean delete(Faculty entity) throws DaoException {
-        return false;
+    public  boolean delete(Faculty entity) throws DaoException {
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_NAME);
+            statement.setString(1, entity.getName());
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
-    boolean delete(int id) throws DaoException {
+    public boolean delete(int id) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -104,7 +120,7 @@ public class FacultyDao extends BaseDao<Faculty> {
     }
 
     @Override
-    boolean create(Faculty entity) throws DaoException {
+    public  boolean create(Faculty entity) throws DaoException {
         boolean createComplete;
         Connection connection = null;
         PreparedStatement statement = null;
