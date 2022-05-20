@@ -9,21 +9,6 @@ import java.util.List;
 
 public class FacultyDao extends BaseDao<Faculty> {
 
-    public static void main(String[] args) throws SQLException, DaoException {
-        BasicConnectionPool pool = BasicConnectionPool.create(
-                "jdbc:mysql://localhost:3306/admissions",
-                "root",
-                "pass");
-        FacultyDao facultyDao = new FacultyDao(pool);
-        Faculty faculty = facultyDao.findEntityById(2);
-
-        faculty.setName("FIOT");
-        faculty.setBudgetSeats(15);
-        faculty.setTotalSeats(30);
-
-        boolean status = facultyDao.update(faculty);
-        System.out.println(status);
-    }
     private static final String SQL_SELECT_ALL =
             "select * from faculties";
     private static final String SQL_SELECT_BY_ID =
