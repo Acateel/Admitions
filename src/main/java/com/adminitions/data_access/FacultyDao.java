@@ -15,12 +15,19 @@ public class FacultyDao extends BaseDao<Faculty> {
                 "root",
                 "pass");
         FacultyDao facultyDao = new FacultyDao(pool);
-        System.out.println(facultyDao.findEntityById(3));
+        Faculty faculty = new Faculty();
+        faculty.setName("URFAC");
+        faculty.setBudgetSeats(15);
+        faculty.setTotalSeats(25);
+        boolean status = facultyDao.create(faculty);
+        System.out.println(status);
     }
     private static final String SQL_SELECT_ALL =
             "select * from faculties";
     private static final String SQL_SELECT_BY_ID =
             "select * from faculties where id=?";
+    private static final String SQL_INSERT =
+            "INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES (?, ?, ?);";
 
     public FacultyDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -38,8 +45,8 @@ public class FacultyDao extends BaseDao<Faculty> {
             while (resultSet.next()) {
                 faculties.add(parseResultSet(resultSet));
             }
-        } catch (SQLException throwables) {
-            throw new DaoException(throwables.getMessage());
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
         } finally {
             close(statement);
             close(connection);
@@ -59,8 +66,8 @@ public class FacultyDao extends BaseDao<Faculty> {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             faculty = parseResultSet(resultSet);
-        } catch (SQLException throwables) {
-            throw new DaoException(throwables.getMessage());
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
         } finally {
             close(statement);
             close(connection);
@@ -80,7 +87,24 @@ public class FacultyDao extends BaseDao<Faculty> {
 
     @Override
     boolean create(Faculty entity) throws DaoException {
-        return false;
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_INSERT);
+            statement.setString(1, entity.getName());
+            statement.setInt(2, entity.getBudgetSeats());
+            statement.setInt(3, entity.getTotalSeats());
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
     }
 
     private Faculty parseResultSet(ResultSet resultSet) {
@@ -90,7 +114,7 @@ public class FacultyDao extends BaseDao<Faculty> {
             faculty.setName(resultSet.getString(2));
             faculty.setBudgetSeats(resultSet.getInt(3));
             faculty.setTotalSeats(resultSet.getInt(4));
-        } catch (SQLException throwables) {
+        } catch (SQLException throwable) {
             // log
         }
         return faculty;
