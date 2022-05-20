@@ -3,10 +3,7 @@ package com.adminitions.data_access;
 import com.adminitions.data_access.connection_pool.BasicConnectionPool;
 import com.adminitions.entities.Faculty;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +15,12 @@ public class FacultyDao extends BaseDao<Faculty> {
                 "root",
                 "pass");
         FacultyDao facultyDao = new FacultyDao(pool);
-        for(Faculty faculty : facultyDao.findAll()){
-            System.out.println(faculty);
-        }
+        System.out.println(facultyDao.findEntityById(3));
     }
-    private static final String SQL_SELECT_ALL_FILMS =
+    private static final String SQL_SELECT_ALL =
             "select * from faculties";
+    private static final String SQL_SELECT_BY_ID =
+            "select * from faculties where id=?";
 
     public FacultyDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -37,7 +34,7 @@ public class FacultyDao extends BaseDao<Faculty> {
         try {
             connection = connectionPool.getConnection();
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_FILMS);
+            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL);
             while (resultSet.next()) {
                 faculties.add(parseResultSet(resultSet));
             }
@@ -52,7 +49,23 @@ public class FacultyDao extends BaseDao<Faculty> {
 
     @Override
     Faculty findEntityById(int id) throws DaoException {
-        return null;
+        Faculty faculty;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_ID);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            faculty = parseResultSet(resultSet);
+        } catch (SQLException throwables) {
+            throw new DaoException(throwables.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return faculty;
     }
 
     @Override
