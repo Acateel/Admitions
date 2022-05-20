@@ -15,11 +15,13 @@ public class FacultyDao extends BaseDao<Faculty> {
                 "root",
                 "pass");
         FacultyDao facultyDao = new FacultyDao(pool);
-        Faculty faculty = new Faculty();
-        faculty.setName("URFAC");
+        Faculty faculty = facultyDao.findEntityById(2);
+
+        faculty.setName("FIOT");
         faculty.setBudgetSeats(15);
-        faculty.setTotalSeats(25);
-        boolean status = facultyDao.create(faculty);
+        faculty.setTotalSeats(30);
+
+        boolean status = facultyDao.update(faculty);
         System.out.println(status);
     }
     private static final String SQL_SELECT_ALL =
@@ -32,6 +34,8 @@ public class FacultyDao extends BaseDao<Faculty> {
             "delete from faculties where id=?;";
     private static final String SQL_DELETE_BY_NAME =
             "delete from faculties where faculty_name=?;";
+    private static final String SQL_UPDATE =
+            "UPDATE faculties SET faculty_name=?, budget_seats=?, total_seats=? WHERE id=?;";
 
     public FacultyDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -130,6 +134,28 @@ public class FacultyDao extends BaseDao<Faculty> {
             statement.setString(1, entity.getName());
             statement.setInt(2, entity.getBudgetSeats());
             statement.setInt(3, entity.getTotalSeats());
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
+    }
+
+    public boolean update(Faculty entity) throws DaoException{
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE);
+            statement.setString(1, entity.getName());
+            statement.setInt(2, entity.getBudgetSeats());
+            statement.setInt(3, entity.getTotalSeats());
+            statement.setInt(4, entity.getId());
             int changeCount = statement.executeUpdate();
             createComplete = changeCount > 0;
         } catch (SQLException throwable) {
