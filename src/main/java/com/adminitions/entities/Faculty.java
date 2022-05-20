@@ -32,6 +32,7 @@ public class Faculty extends Entity {
     @Override
     public String toString() {
         return "Faculty{" +
+                "id='" + getId() + '\'' +
                 "name='" + name + '\'' +
                 ", budgetSeats=" + budgetSeats +
                 ", totalSeats=" + totalSeats +
