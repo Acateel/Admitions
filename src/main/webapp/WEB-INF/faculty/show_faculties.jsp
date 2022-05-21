@@ -1,5 +1,3 @@
-<%@ page import="com.adminitions.entities.Faculty" %>
-<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Taras
@@ -7,8 +5,8 @@
   Time: 19:20
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% List<Faculty> faculties = (List<Faculty>)request.getAttribute("faculties"); %>
 <html>
 <head>
     <title>Faculties</title>
@@ -16,15 +14,14 @@
 <body>
 <h1>All Faculties</h1>
 <table>
-    <%
-        for(Faculty faculty : faculties){%>
-    <tr>
-        <td><%= faculty.getId()%></td>
-        <td><%= faculty.getName() %></td>
-        <td><%= faculty.getBudgetSeats() %></td>
-        <td><%= faculty.getTotalSeats() %></td>
-    </tr>
-    <%}%>
+    <c:forEach var="faculty" items="${requestScope.faculties}">
+        <ul>
+            <li>Id: <c:out value="${faculty.id}"/></li>
+            <li>Name: <c:out value="${faculty.name}"/></li>
+            <li>Budget seats: <c:out value="${faculty.budgetSeats}"/></li>
+            <li>Total seats: <c:out value="${faculty.totalSeats}"/></li>
+        </ul>
+    </c:forEach>
 </table>
 </body>
 </html>
