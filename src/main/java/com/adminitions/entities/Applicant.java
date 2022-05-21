@@ -1,5 +1,7 @@
 package com.adminitions.entities;
 
+import java.sql.Blob;
+
 public class Applicant extends Entity {
     private String lastName;
     private String name;
@@ -8,7 +10,7 @@ public class Applicant extends Entity {
     private String city;
     private String region;
     private String nameEducationalInstitution;
-    private String attestation; // may be change type
+    private Blob attestation;
     private boolean block;
 
     public String getLastName() {
@@ -67,11 +69,11 @@ public class Applicant extends Entity {
         this.nameEducationalInstitution = nameEducationalInstitution;
     }
 
-    public String getAttestation() {
+    public Blob getAttestation() {
         return attestation;
     }
 
-    public void setAttestation(String attestation) {
+    public void setAttestation(Blob attestation) {
         this.attestation = attestation;
     }
 
