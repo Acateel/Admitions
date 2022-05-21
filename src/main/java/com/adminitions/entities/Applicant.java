@@ -84,4 +84,19 @@ public class Applicant extends Entity {
     public void setBlock(boolean block) {
         this.block = block;
     }
+
+    @Override
+    public String toString() {
+        return "Applicant{" +
+                "lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", nameEducationalInstitution='" + nameEducationalInstitution + '\'' +
+                ", attestation=" + attestation +
+                ", block=" + block +
+                '}';
+    }
 }
