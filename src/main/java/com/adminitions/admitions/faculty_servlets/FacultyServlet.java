@@ -2,33 +2,19 @@ package com.adminitions.admitions.faculty_servlets;
 
 import com.adminitions.data_access.DaoException;
 import com.adminitions.data_access.FacultyDao;
-import com.adminitions.data_access.connection_pool.BasicConnectionPool;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(name = "FacultyServlet", value = "/FacultyServlet")
 public class FacultyServlet extends HttpServlet {
-    FacultyDao facultyDao;
+    private transient FacultyDao facultyDao;
 
     @Override
     public void init() throws ServletException {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            BasicConnectionPool pool = BasicConnectionPool.create(
-                    "jdbc:mysql://localhost:3306/admissions",
-                    "root",
-                    "pass"
-            );
-            facultyDao = new FacultyDao(pool);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
     }
 
     @Override
@@ -38,6 +24,7 @@ public class FacultyServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/faculty/show_faculties.jsp").forward(request, response);
         } catch (DaoException e) {
             throw new RuntimeException(e);
+            // add log and error page
         }
     }
 
