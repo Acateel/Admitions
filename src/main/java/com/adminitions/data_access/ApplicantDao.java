@@ -7,27 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicantDao extends BaseDao<Applicant>{
+public class ApplicantDao extends BaseDao<Applicant> {
 
-    public static void main(String[] args) throws SQLException, DaoException {
-        BasicConnectionPool pool = BasicConnectionPool.create(
-                "jdbc:mysql://localhost:3306/admissions",
-                "root",
-                "pass"
-        );
-        ApplicantDao dao = new ApplicantDao(pool);
-
-        Applicant applicant = new Applicant();
-        applicant.setLastName("Misko");
-        applicant.setName("Taras");
-        applicant.setSurname("Romanovich");
-        applicant.setEmail("kozodoitaras@gmil.com");
-        applicant.setCity("Rivne");
-        applicant.setRegion("Rinve");
-        applicant.setNameEducationalInstitution("School #2");
-
-        dao.delete(applicant);
-    }
     public ApplicantDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
     }
@@ -46,7 +27,8 @@ public class ApplicantDao extends BaseDao<Applicant>{
     private static final String SQL_DELETE_BY_NAME =
             "delete from applicant where last_name=? and `name`=? and surname=?;";
 
-
+    private static final String SQL_UPDATE =
+            "UPDATE applicant SET last_name=?, `name`=?, surname=?, email=?, city=?, region=?, name_educational_institution=?, attestation=?, `block`=? WHERE id=?;";
 
     @Override
     public List<Applicant> findAll() throws DaoException {
@@ -91,7 +73,7 @@ public class ApplicantDao extends BaseDao<Applicant>{
     }
 
     @Override
-    boolean delete(Applicant entity) throws DaoException {
+    public boolean delete(Applicant entity) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -113,7 +95,7 @@ public class ApplicantDao extends BaseDao<Applicant>{
     }
 
     @Override
-    boolean delete(int id) throws DaoException {
+    public boolean delete(int id) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -141,15 +123,29 @@ public class ApplicantDao extends BaseDao<Applicant>{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQL_INSERT);
 
-            statement.setString(1, entity.getLastName());
-            statement.setString(2, entity.getName());
-            statement.setString(3, entity.getSurname());
-            statement.setString(4, entity.getEmail());
-            statement.setString(5, entity.getCity());
-            statement.setString(6, entity.getRegion());
-            statement.setString(7, entity.getNameEducationalInstitution());
-            statement.setBlob(8, entity.getAttestation());
-            statement.setBoolean(9, entity.isBlock());
+            setBasicPrepareStatement(entity, statement);
+
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
+    }
+
+    public boolean update(Applicant entity) throws DaoException {
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE);
+
+            setBasicPrepareStatement(entity, statement);
+            statement.setInt(10, entity.getId());
 
             int changeCount = statement.executeUpdate();
             createComplete = changeCount > 0;
@@ -179,5 +175,17 @@ public class ApplicantDao extends BaseDao<Applicant>{
             // log
         }
         return applicant;
+    }
+
+    private void setBasicPrepareStatement(Applicant entity, PreparedStatement statement) throws SQLException {
+        statement.setString(1, entity.getLastName());
+        statement.setString(2, entity.getName());
+        statement.setString(3, entity.getSurname());
+        statement.setString(4, entity.getEmail());
+        statement.setString(5, entity.getCity());
+        statement.setString(6, entity.getRegion());
+        statement.setString(7, entity.getNameEducationalInstitution());
+        statement.setBlob(8, entity.getAttestation());
+        statement.setBoolean(9, entity.isBlock());
     }
 }
