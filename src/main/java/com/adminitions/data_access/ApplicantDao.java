@@ -2,8 +2,6 @@ package com.adminitions.data_access;
 
 import com.adminitions.data_access.connection_pool.BasicConnectionPool;
 import com.adminitions.entities.Applicant;
-import com.adminitions.entities.Entity;
-import com.adminitions.entities.Faculty;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,6 +9,25 @@ import java.util.List;
 
 public class ApplicantDao extends BaseDao<Applicant>{
 
+    public static void main(String[] args) throws SQLException, DaoException {
+        BasicConnectionPool pool = BasicConnectionPool.create(
+                "jdbc:mysql://localhost:3306/admissions",
+                "root",
+                "pass"
+        );
+        ApplicantDao dao = new ApplicantDao(pool);
+
+        Applicant applicant = new Applicant();
+        applicant.setLastName("Kozodoi");
+        applicant.setName("Taras");
+        applicant.setSurname("Romanovich");
+        applicant.setEmail("kozodoitaras@gmil.com");
+        applicant.setCity("Rivne");
+        applicant.setRegion("Rinve");
+        applicant.setNameEducationalInstitution("School #2");
+
+        dao.create(applicant);
+    }
     public ApplicantDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
     }
@@ -19,6 +36,10 @@ public class ApplicantDao extends BaseDao<Applicant>{
             "select * from applicant";
     private static final String SQL_SELECT_BY_ID =
             "select * from applicant where id=?";
+    private static final String SQL_INSERT =
+            "INSERT INTO applicant (last_name, `name`, surname, email, city, region, " +
+                    "name_educational_institution, attestation, `block`) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     @Override
     public List<Applicant> findAll() throws DaoException {
@@ -73,8 +94,33 @@ public class ApplicantDao extends BaseDao<Applicant>{
     }
 
     @Override
-    boolean create(Applicant entity) throws DaoException {
-        return false;
+    public boolean create(Applicant entity) throws DaoException {
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_INSERT);
+
+            statement.setString(1, entity.getLastName());
+            statement.setString(2, entity.getName());
+            statement.setString(3, entity.getSurname());
+            statement.setString(4, entity.getEmail());
+            statement.setString(5, entity.getCity());
+            statement.setString(6, entity.getRegion());
+            statement.setString(7, entity.getNameEducationalInstitution());
+            statement.setBlob(8, entity.getAttestation());
+            statement.setBoolean(9, entity.isBlock());
+
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
     }
 
     private Applicant parseResultSet(ResultSet resultSet) {

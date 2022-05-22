@@ -48,5 +48,3 @@ f
 6src/main/java/com/adminitions/data_access/BaseDao.java,d\a\da25178987d6b9cf41d502c05767d11ec0f316e9
 f
 6src/main/java/com/adminitions/entities/users/Role.java,3\a\3afd1f5b04f5472d41b2b7a2c1bc3e0231c32fdd
-i
-9src/main/java/com/adminitions/data_access/FacultyDao.java,8\0\80db7888f4dbb111e4271c52b297fca341970302
