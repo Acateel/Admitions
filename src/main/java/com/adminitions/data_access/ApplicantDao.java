@@ -18,7 +18,7 @@ public class ApplicantDao extends BaseDao<Applicant>{
         ApplicantDao dao = new ApplicantDao(pool);
 
         Applicant applicant = new Applicant();
-        applicant.setLastName("Kozodoi");
+        applicant.setLastName("Misko");
         applicant.setName("Taras");
         applicant.setSurname("Romanovich");
         applicant.setEmail("kozodoitaras@gmil.com");
@@ -26,7 +26,7 @@ public class ApplicantDao extends BaseDao<Applicant>{
         applicant.setRegion("Rinve");
         applicant.setNameEducationalInstitution("School #2");
 
-        dao.delete(3);
+        dao.delete(applicant);
     }
     public ApplicantDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -42,6 +42,10 @@ public class ApplicantDao extends BaseDao<Applicant>{
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SQL_DELETE_BY_ID =
             "delete from applicant where id=?;";
+
+    private static final String SQL_DELETE_BY_NAME =
+            "delete from applicant where last_name=? and `name`=? and surname=?;";
+
 
 
     @Override
@@ -88,7 +92,24 @@ public class ApplicantDao extends BaseDao<Applicant>{
 
     @Override
     boolean delete(Applicant entity) throws DaoException {
-        return false;
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_NAME);
+            statement.setString(1, entity.getLastName());
+            statement.setString(2, entity.getName());
+            statement.setString(3, entity.getSurname());
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
