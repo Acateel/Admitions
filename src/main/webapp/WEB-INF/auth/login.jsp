@@ -58,6 +58,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                     <button type="button" class="btn btn-link">Signup</button>
+                    <a href="${pageContext.request.contextPath}/index.jsp">
+                        <button type="button" class="btn btn-link" >Back</button>
+                    </a>
                 </form>
             </div>
         </div>
