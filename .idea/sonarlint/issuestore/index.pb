@@ -10,8 +10,6 @@ Q
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 U
 %.mvn/wrapper/maven-wrapper.properties,3\2\32e074f71d16c1e88ac02aa83592ca6ad1fd98a8
-O
-src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
 Z
 *.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a
 9
@@ -48,8 +46,6 @@ y
 Isrc/main/java/com/adminitions/admitions/listeners/FacultyDaoListener.java,4\b\4b8ab5c6c39dee1317418845e941de7157b6a08a
 f
 6src/main/java/com/adminitions/data_access/BaseDao.java,d\a\da25178987d6b9cf41d502c05767d11ec0f316e9
-|
-Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
 f
 6src/main/java/com/adminitions/entities/users/Role.java,3\a\3afd1f5b04f5472d41b2b7a2c1bc3e0231c32fdd
 i
