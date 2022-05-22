@@ -26,7 +26,7 @@ public class ApplicantDao extends BaseDao<Applicant>{
         applicant.setRegion("Rinve");
         applicant.setNameEducationalInstitution("School #2");
 
-        dao.create(applicant);
+        dao.delete(3);
     }
     public ApplicantDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -40,6 +40,9 @@ public class ApplicantDao extends BaseDao<Applicant>{
             "INSERT INTO applicant (last_name, `name`, surname, email, city, region, " +
                     "name_educational_institution, attestation, `block`) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String SQL_DELETE_BY_ID =
+            "delete from applicant where id=?;";
+
 
     @Override
     public List<Applicant> findAll() throws DaoException {
@@ -90,7 +93,22 @@ public class ApplicantDao extends BaseDao<Applicant>{
 
     @Override
     boolean delete(int id) throws DaoException {
-        return false;
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_ID);
+            statement.setInt(1, id);
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
