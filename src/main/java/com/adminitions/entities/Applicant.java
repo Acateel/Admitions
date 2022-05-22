@@ -11,7 +11,7 @@ public class Applicant extends Entity {
     private String region;
     private String nameEducationalInstitution;
     private Blob attestation;
-    private boolean block;
+    private boolean block = false;
 
     public String getLastName() {
         return lastName;
