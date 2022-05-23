@@ -1,7 +1,6 @@
 package com.adminitions.data_access;
 
 import com.adminitions.data_access.connection_pool.BasicConnectionPool;
-import com.adminitions.entities.Applicant;
 import com.adminitions.entities.users.Role;
 import com.adminitions.entities.users.User;
 
@@ -25,7 +24,7 @@ public class UserDao extends BaseDao<User> {
         user.setPassword("admin");
         user.setRole(Role.ADMIN);
 
-        System.out.println(dao.create(user));
+        dao.create(user);
     }
 
     private static final String SQL_SELECT_ALL =
@@ -34,6 +33,12 @@ public class UserDao extends BaseDao<User> {
             "select * from user where id=?";
     private static final String SQL_INSERT =
             "INSERT INTO `user` (login, `password`, `role`, applicant_id) VALUES (?, ?, ?, ?);";
+
+    private static final String SQL_DELETE_BY_ID =
+            "delete from `user` where id=?;";
+
+    private static final String SQL_DELETE_BY_LOGIN_AND_PASSWORD =
+            "delete from `user` where `login`=? and `password`=?;";
 
     public UserDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -83,12 +88,43 @@ public class UserDao extends BaseDao<User> {
 
     @Override
     boolean delete(User entity) throws DaoException {
-        return false;
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_LOGIN_AND_PASSWORD);
+            statement.setString(1, entity.getLogin());
+            statement.setString(2, entity.getPassword());
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
     boolean delete(int id) throws DaoException {
-        return false;
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_ID);
+            statement.setInt(1, id);
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
