@@ -44,8 +44,6 @@ y
 Isrc/main/java/com/adminitions/admitions/listeners/FacultyDaoListener.java,4\b\4b8ab5c6c39dee1317418845e941de7157b6a08a
 f
 6src/main/java/com/adminitions/data_access/BaseDao.java,d\a\da25178987d6b9cf41d502c05767d11ec0f316e9
-f
-6src/main/java/com/adminitions/entities/users/Role.java,3\a\3afd1f5b04f5472d41b2b7a2c1bc3e0231c32fdd
 w
 G.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec,8\6\863e0292fd7e9b3e74dafd6cc01f73ba76346482
 w
@@ -84,7 +82,5 @@ O
 Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
 Z
 *src/main/webapp/WEB-INF/bootstrapHead.html,f\7\f7aa141c10c18917e3128345282485db2735d696
-}
-Msrc/main/java/com/adminitions/admitions/listeners/ConnectionPoolListener.java,8\0\809e46f0c0373748ea9193a2f7c9fef121f721d2
 e
 5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
