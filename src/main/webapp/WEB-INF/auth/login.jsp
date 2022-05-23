@@ -47,7 +47,7 @@
     <div class="back">
         <div class="div-center">
             <div class="content">
-                <form>
+                <form action="Login" method="post">
                     <div class="form-group">
                         <label for="login">Login</label>
                         <input type="text" class="form-control" id="login" placeholder="Login">
