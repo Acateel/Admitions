@@ -39,4 +39,14 @@ public class User extends Entity {
     public void setApplicantId(int applicantId) {
         this.applicantId = applicantId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", applicantId=" + applicantId +
+                '}';
+    }
 }
