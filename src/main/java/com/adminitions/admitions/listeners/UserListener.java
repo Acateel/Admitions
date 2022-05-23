@@ -17,7 +17,7 @@ public class UserListener implements ServletContextListener, HttpSessionListener
         BasicConnectionPool pool = (BasicConnectionPool) sce.getServletContext().getAttribute("connectionPool");
         userDao = new UserDao(pool);
         ServletContext context = sce.getServletContext();
-        context.setAttribute("FacultyDao", userDao);
+        context.setAttribute("UserDao", userDao);
     }
 
     @Override
