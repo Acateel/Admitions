@@ -9,36 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao extends BaseDao<User> {
-
-    public static void main(String[] args) throws SQLException, DaoException {
-        BasicConnectionPool pool = BasicConnectionPool.create(
-                "jdbc:mysql://localhost:3306/admissions",
-                "root",
-                "pass"
-        );
-
-        UserDao dao = new UserDao(pool);
-
-        User user = new User();
-        user.setLogin("admin");
-        user.setPassword("admin");
-        user.setRole(Role.ADMIN);
-
-        dao.create(user);
-    }
-
     private static final String SQL_SELECT_ALL =
             "select * from `user`";
     private static final String SQL_SELECT_BY_ID =
             "select * from user where id=?";
     private static final String SQL_INSERT =
             "INSERT INTO `user` (login, `password`, `role`, applicant_id) VALUES (?, ?, ?, ?);";
-
     private static final String SQL_DELETE_BY_ID =
             "delete from `user` where id=?;";
-
     private static final String SQL_DELETE_BY_LOGIN_AND_PASSWORD =
             "delete from `user` where `login`=? and `password`=?;";
+    private static final String SQL_FIND_BY_LOGIN_AND_PASSWORD =
+            "SELECT * FROM `user` WHERE `login`=? AND `password`=?;";
 
     public UserDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -66,7 +48,7 @@ public class UserDao extends BaseDao<User> {
     }
 
     @Override
-    User findEntityById(int id) throws DaoException {
+    public User findEntityById(int id) throws DaoException {
         User user;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -87,7 +69,7 @@ public class UserDao extends BaseDao<User> {
     }
 
     @Override
-    boolean delete(User entity) throws DaoException {
+    public boolean delete(User entity) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -108,7 +90,7 @@ public class UserDao extends BaseDao<User> {
     }
 
     @Override
-    boolean delete(int id) throws DaoException {
+    public boolean delete(int id) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -128,7 +110,7 @@ public class UserDao extends BaseDao<User> {
     }
 
     @Override
-    boolean create(User entity) throws DaoException {
+    public boolean create(User entity) throws DaoException {
         boolean createComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -150,6 +132,32 @@ public class UserDao extends BaseDao<User> {
             close(connection);
         }
         return createComplete;
+    }
+
+    public User findUser(String login, String password) throws DaoException {
+        User user;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_FIND_BY_LOGIN_AND_PASSWORD);
+            statement.setString(1, login);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            user = parseResultSet(resultSet);
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return user;
+    }
+
+    public boolean isExist(String login, String password) throws DaoException {
+        User user = findUser(login, password);
+        return user.getLogin() != null && user.getPassword() != null;
     }
 
     private User parseResultSet(ResultSet resultSet) {
