@@ -50,17 +50,20 @@
                 <form action="Login" method="post">
                     <div class="form-group">
                         <label for="login">Login</label>
-                        <input type="text" class="form-control" id="login" placeholder="Login">
+                        <input name="login" type="text" class="form-control" id="login" placeholder="Login">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                     <button type="button" class="btn btn-link">Signup</button>
                     <a href="${pageContext.request.contextPath}/index.jsp">
                         <button type="button" class="btn btn-link" >Back</button>
                     </a>
+                    <div class="text-danger">
+                        <h5>${requestScope.Error}</h5>
+                    </div>
                 </form>
             </div>
         </div>
