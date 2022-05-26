@@ -36,7 +36,7 @@
                 } else if (user.getRole() == Role.APPLICANT) {
                 %>
                 <li class="active">
-                    <a href="#">Applicant</a>
+                    <a href="#"><%= request.getSession().getAttribute("Name")%></a>
                 </li>
                 <li class="active">
                     <a href="Logout">Logout</a>

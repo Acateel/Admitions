@@ -71,28 +71,18 @@ w
 G.idea/sonarlint/issuestore/1/8/188792529ee886cbdc6616248007f7a96c73e03d,d\a\da0f9009654350422df3c20f0f6bb4835ee4de6d
 w
 G.idea/sonarlint/issuestore/8/4/84e47ea35f445eb5238128908f068928322bf283,3\d\3d1ca924db7ef78f0dd0db0a435213aec2448d88
-O
-src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
 |
 Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
 Z
 *src/main/webapp/WEB-INF/bootstrapHead.html,f\7\f7aa141c10c18917e3128345282485db2735d696
 e
 5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
-}
-Msrc/main/java/com/adminitions/admitions/listeners/ConnectionPoolListener.java,8\0\809e46f0c0373748ea9193a2f7c9fef121f721d2
-k
-;src/main/java/com/adminitions/data_access/ApplicantDao.java,2\c\2c5f74f2a1addad0345f58507f64d6b8112831da
 f
 6src/main/java/com/adminitions/data_access/UserDao.java,3\9\3908a3ab0eaf1b5385f7e67987c8606cadf892da
 f
 6src/main/java/com/adminitions/entities/users/User.java,c\8\c8621aa693cc220dea4a85e7a4e0a036baccb796
 f
 6src/main/java/com/adminitions/entities/users/Role.java,3\a\3afd1f5b04f5472d41b2b7a2c1bc3e0231c32fdd
-y
-Isrc/main/java/com/adminitions/admitions/listeners/FacultyDaoListener.java,4\b\4b8ab5c6c39dee1317418845e941de7157b6a08a
-s
-Csrc/main/java/com/adminitions/admitions/listeners/UserListener.java,d\a\dae937fdf9adb0c23846b3d56e6b77ebcab64cb7
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
