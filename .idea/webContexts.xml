@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/auth/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/auth" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/faculty/show_faculties.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/faculty" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
   </component>

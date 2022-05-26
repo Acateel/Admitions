@@ -39,7 +39,7 @@
                     <a href="#">Applicant</a>
                 </li>
                 <li class="active">
-                    <a href="#">Logout</a>
+                    <a href="Logout">Logout</a>
                 </li>
                 <%
                 } else if (user.getRole() == Role.ADMIN) {
@@ -48,7 +48,7 @@
                     <a href="#">Admin</a>
                 </li>
                 <li class="active">
-                    <a href="#">Logout</a>
+                    <a href="Logout">Logout</a>
                 </li>
                 <%}%>
             </ul>
