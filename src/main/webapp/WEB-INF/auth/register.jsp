@@ -14,24 +14,44 @@
 <body>
 <jsp:include page="../Navbar.jsp"/>
 
-<form action="">
+<form action="Registration" method="post">
     <div class="container">
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
         <hr>
-
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-
-        <label for="psw-repeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+        <em class="text-danger">* this is a required field</em>
+        <br/>
+        <label for="email">Email<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Email" name="email" id="email" required>
+        <br/>
+        <label for="psw">Password<span class="text-danger">*</span></label>
+        <input type="password" class="form-control" placeholder="Enter Password" name="psw" id="psw" required>
+        <br/>
+        <label for="psw-repeat">Repeat Password<span class="text-danger">*</span></label>
+        <input type="password" class="form-control" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+        <br/>
+        <label for="lastname">Last Name<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname" id="lastname" required>
+        <br/>
+        <label for="firstname">First Name<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" id="firstname" required>
+        <br/>
+        <label for="surname">Surname<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Surname" name="surname" id="surname" required>
+        <br/>
+        <label for="city">City<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter City" name="city" id="city" required>
+        <br/>
+        <label for="region">Region<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Region" name="region" id="region" required>
+        <br/>
+        <label for="education">Name of educational institution<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter name" name="education" id="education" required>
+        <br/>
+        <label for="attestation">Attestation</label>
+        <input type="file" class="form-control" placeholder="Select attestation" name="attestation" id="attestation" required>
         <hr>
-        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-
-        <button type="submit" class="registerbtn">Register</button>
+        <button type="submit" class="button">Register</button>
     </div>
 
     <div class="container">
