@@ -2,6 +2,7 @@ package com.adminitions.admitions.auth;
 
 import com.adminitions.entities.Applicant;
 import com.adminitions.entities.users.User;
+import com.adminitions.validators.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -37,19 +38,15 @@ public class RegistrationServlet extends HttpServlet {
         writeApplicant(response, applicant, user);
     }
 
-    private static final String REGEX_EMAIL = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
-
     private void checkEmail(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException {
-        if (!email.matches(REGEX_EMAIL)) {
+        if (!Validator.checkEmail(email)) {
             request.setAttribute("EmailError", "Email is not format");
             doGet(request, response);
         }
     }
 
-    private static final String REGEX_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
-
     private void checkPassword(HttpServletRequest request, HttpServletResponse response, String password) throws ServletException, IOException {
-        if (!password.matches(REGEX_PASSWORD)) {
+        if (!Validator.checkPassword(password)) {
             request.setAttribute("PasswordError", "Minimum eight characters, at least one letter and one number");
             doGet(request, response);
         }
@@ -62,6 +59,7 @@ public class RegistrationServlet extends HttpServlet {
         }
     }
 
+
     private void writeApplicant(HttpServletResponse response, Applicant applicant, User user) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -71,6 +69,4 @@ public class RegistrationServlet extends HttpServlet {
         out.println("</body></html>");
         out.close();
     }
-
-
 }
