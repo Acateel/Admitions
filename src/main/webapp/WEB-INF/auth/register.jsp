@@ -5,7 +5,7 @@
   Time: 18:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Register</title>
@@ -24,32 +24,38 @@
         <label for="email">Email<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter Email" name="email" id="email" required>
         <p class="text-danger">${requestScope.EmailError}</p>
+
         <label for="psw">Password<span class="text-danger">*</span></label>
         <input type="password" class="form-control" placeholder="Enter Password" name="psw" id="psw" required>
         <p class="text-danger">${requestScope.PasswordError}</p>
+
         <label for="psw-repeat">Repeat Password<span class="text-danger">*</span></label>
         <input type="password" class="form-control" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
         <p class="text-danger">${requestScope.PasswordRepeatError}</p>
+
         <label for="lastname">Last Name<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname" id="lastname" required>
-        <br/>
+        <p class="text-danger">${requestScope.LastNameError}</p>
+
         <label for="firstname">First Name<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" id="firstname" required>
-        <br/>
+        <p class="text-danger">${requestScope.FirstNameError}</p>
+
         <label for="surname">Surname<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter Surname" name="surname" id="surname" required>
-        <br/>
+        <p class="text-danger">${requestScope.SurnameError}</p>
+
         <label for="city">City<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter City" name="city" id="city" required>
-        <br/>
+        <p class="text-danger">${requestScope.CityError}</p>
+
         <label for="region">Region<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter Region" name="region" id="region" required>
-        <br/>
+        <p class="text-danger">${requestScope.RegionError}</p>
+
         <label for="education">Name of educational institution<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter name" name="education" id="education" required>
-        <br/>
-        <label for="attestation">Attestation</label>
-        <input type="file" class="form-control" placeholder="Select attestation" name="attestation" id="attestation">
+        <p class="text-danger">${requestScope.InstitutionError}</p>
         <hr>
         <button type="submit" class="button">Register</button>
     </div>
