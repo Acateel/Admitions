@@ -17,6 +17,8 @@ public class ApplicantDao extends BaseDao<Applicant> {
             "select * from applicant";
     private static final String SQL_SELECT_BY_ID =
             "select * from applicant where id=?";
+    private static final String SQL_SELECT_ID =
+            "select id from applicant where last_name=? and `name`=? and surname=? and email=?;";
     private static final String SQL_INSERT =
             "INSERT INTO applicant (last_name, `name`, surname, email, city, region, " +
                     "name_educational_institution, attestation, `block`) " +
@@ -70,6 +72,30 @@ public class ApplicantDao extends BaseDao<Applicant> {
             close(connection);
         }
         return applicant;
+    }
+
+    public int findEntityId(Applicant applicant) throws DaoException {
+        int id;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_ID);
+            statement.setString(1, applicant.getLastName());
+            statement.setString(2, applicant.getName());
+            statement.setString(3, applicant.getSurname());
+            statement.setString(4, applicant.getEmail());
+
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            id = resultSet.getInt(1);
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return id;
     }
 
     @Override
