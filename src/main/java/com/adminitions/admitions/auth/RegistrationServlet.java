@@ -25,7 +25,16 @@ public class RegistrationServlet extends HttpServlet {
         User user = new User();
         Applicant applicant = new Applicant();
         setUserAndApplicant(request, response, user, applicant);
+        addToDb(request, response, user, applicant);
 
+        HttpSession session = request.getSession();
+        session.setAttribute("User", user);
+        String fullName = applicant.getLastName() + " " + applicant.getName();
+        session.setAttribute("Name", fullName);
+        response.sendRedirect("index.jsp");
+    }
+
+    private void addToDb(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant) throws ServletException, IOException {
         UserDao userDao = (UserDao) getServletContext().getAttribute("UserDao");
         ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
 
@@ -46,7 +55,6 @@ public class RegistrationServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
     private boolean applicantExist(Applicant applicant, ApplicantDao applicantDao) {
