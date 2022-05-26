@@ -3,7 +3,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="../index.jsp" class="navbar-brand">Admitions</a>
+            <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand">Admitions</a>
         </div>
 
         <%
