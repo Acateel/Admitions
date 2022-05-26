@@ -23,13 +23,13 @@
         <br/>
         <label for="email">Email<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter Email" name="email" id="email" required>
-        <br/>
+        <p class="text-danger">${requestScope.EmailError}</p>
         <label for="psw">Password<span class="text-danger">*</span></label>
         <input type="password" class="form-control" placeholder="Enter Password" name="psw" id="psw" required>
-        <br/>
+        <p class="text-danger">${requestScope.PasswordError}</p>
         <label for="psw-repeat">Repeat Password<span class="text-danger">*</span></label>
         <input type="password" class="form-control" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-        <br/>
+        <p class="text-danger">${requestScope.PasswordRepeatError}</p>
         <label for="lastname">Last Name<span class="text-danger">*</span></label>
         <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname" id="lastname" required>
         <br/>
@@ -49,7 +49,7 @@
         <input type="text" class="form-control" placeholder="Enter name" name="education" id="education" required>
         <br/>
         <label for="attestation">Attestation</label>
-        <input type="file" class="form-control" placeholder="Select attestation" name="attestation" id="attestation" required>
+        <input type="file" class="form-control" placeholder="Select attestation" name="attestation" id="attestation">
         <hr>
         <button type="submit" class="button">Register</button>
     </div>
