@@ -32,10 +32,7 @@ public class LoginServlet extends HttpServlet {
                 User user = userDao.findUser(login, password);
                 session.setAttribute("User", user);
                 if (user.getRole() == Role.APPLICANT){
-                    ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
-                    Applicant applicant = applicantDao.findEntityById(user.getApplicantId());
-                    String fullName = applicant.getLastName() + " " + applicant.getName();
-                    session.setAttribute("Name", fullName);
+                    addFullNameInSession(session, user);
                 }
                 response.sendRedirect("index.jsp");
             }
@@ -47,5 +44,12 @@ public class LoginServlet extends HttpServlet {
             // add log and response
             throw new RuntimeException(e);
         }
+    }
+
+    private void addFullNameInSession(HttpSession session, User user) throws DaoException {
+        ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
+        Applicant applicant = applicantDao.findEntityById(user.getApplicantId());
+        String fullName = applicant.getLastName() + " " + applicant.getName();
+        session.setAttribute("Name", fullName);
     }
 }
