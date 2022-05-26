@@ -85,3 +85,14 @@ k
 ;src/main/java/com/adminitions/data_access/ApplicantDao.java,2\c\2c5f74f2a1addad0345f58507f64d6b8112831da
 f
 6src/main/java/com/adminitions/data_access/UserDao.java,3\9\3908a3ab0eaf1b5385f7e67987c8606cadf892da
+f
+6src/main/java/com/adminitions/entities/users/User.java,c\8\c8621aa693cc220dea4a85e7a4e0a036baccb796
+f
+6src/main/java/com/adminitions/entities/users/Role.java,3\a\3afd1f5b04f5472d41b2b7a2c1bc3e0231c32fdd
+y
+Isrc/main/java/com/adminitions/admitions/listeners/FacultyDaoListener.java,4\b\4b8ab5c6c39dee1317418845e941de7157b6a08a
+s
+Csrc/main/java/com/adminitions/admitions/listeners/UserListener.java,d\a\dae937fdf9adb0c23846b3d56e6b77ebcab64cb7
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302

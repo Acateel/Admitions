@@ -24,7 +24,8 @@ public class LoginServlet extends HttpServlet {
 
         try {
             if(userDao.isExist(login, password)){
-                // add login, password and role in filter
+                HttpSession session = request.getSession();
+                session.setAttribute("User", userDao.findUser(login, password));
                 response.sendRedirect("index.jsp");
             }
             else{
