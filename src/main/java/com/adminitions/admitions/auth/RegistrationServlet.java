@@ -1,5 +1,8 @@
 package com.adminitions.admitions.auth;
 
+import com.adminitions.data_access.ApplicantDao;
+import com.adminitions.data_access.DaoException;
+import com.adminitions.data_access.UserDao;
 import com.adminitions.entities.Applicant;
 import com.adminitions.entities.users.Role;
 import com.adminitions.entities.users.User;
@@ -7,17 +10,8 @@ import com.adminitions.validators.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import jdk.internal.util.xml.impl.Input;
-import sun.misc.IOUtils;
 
-import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.sql.Struct;
 
 @WebServlet(name = "RegistrationServlet", value = "/Registration")
 public class RegistrationServlet extends HttpServlet {
@@ -28,6 +22,53 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = new User();
+        Applicant applicant = new Applicant();
+        setUserAndApplicant(request, response, user, applicant);
+
+        UserDao userDao = (UserDao) getServletContext().getAttribute("UserDao");
+        ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
+
+        if (applicantExist(applicant, applicantDao)) {
+            request.setAttribute("EmailError", "This applicant exist");
+            doGet(request, response);
+        } else if (userExist(user, userDao)) {
+            request.setAttribute("EmailError", "This user exist");
+            doGet(request, response);
+        } else {
+            try {
+                applicantDao.create(applicant);
+                int id = applicantDao.findEntityId(applicant);
+                user.setApplicantId(id);
+                userDao.create(user);
+            } catch (DaoException e) {
+                // add log
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    private boolean applicantExist(Applicant applicant, ApplicantDao applicantDao) {
+        int id = 0;
+        try {
+            id = applicantDao.findEntityId(applicant);
+        } catch (DaoException e) {
+            return false;
+        }
+        return id > 0;
+    }
+
+    private boolean userExist(User user, UserDao userDao){
+        try {
+            return userDao.isExist(user.getLogin(), user.getPassword());
+        } catch (DaoException e) {
+            return false;
+        }
+    }
+
+    private void setUserAndApplicant(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant)
+            throws ServletException, IOException {
         String email = request.getParameter("email");
         checkEmail(request, response, email);
         String password = request.getParameter("psw");
@@ -48,12 +89,10 @@ public class RegistrationServlet extends HttpServlet {
         checkEducationInstitution(request, response, institution);
 
         //initialise
-        User user = new User();
         user.setLogin(email);
         user.setPassword(password);
         user.setRole(Role.APPLICANT);
 
-        Applicant applicant = new Applicant();
         applicant.setEmail(email);
         applicant.setLastName(lastname);
         applicant.setName(firstname);
@@ -61,8 +100,6 @@ public class RegistrationServlet extends HttpServlet {
         applicant.setCity(city);
         applicant.setRegion(region);
         applicant.setNameEducationalInstitution(institution);
-
-        writeApplicant(response, applicant, user);
     }
 
     private void checkEmail(HttpServletRequest request, HttpServletResponse response, String email)
@@ -136,15 +173,5 @@ public class RegistrationServlet extends HttpServlet {
             request.setAttribute("InstitutionError", "Institution is not format");
             doGet(request, response);
         }
-    }
-
-    private void writeApplicant(HttpServletResponse response, Applicant applicant, User user) throws IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<pre>" + applicant.toString() + "<pre>");
-        out.println("<pre>" + user.toString() + "<pre>");
-        out.println("</body></html>");
-        out.close();
     }
 }
