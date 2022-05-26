@@ -22,7 +22,7 @@
                     <a href="Login">Login</a>
                 </li>
                 <li class="active">
-                    <a href="#">Sing up</a>
+                    <a href="Registration">Sing up</a>
                 </li>
                 <%
                 } else if (user.getRole() == Role.APPLICANT) {

@@ -44,29 +44,31 @@
     </style>
 </head>
 <body>
-    <div class="back">
-        <div class="div-center">
-            <div class="content">
-                <form action="Login" method="post">
-                    <div class="form-group">
-                        <label for="login">Login</label>
-                        <input name="login" type="text" class="form-control" id="login" placeholder="Login">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+<div class="back">
+    <div class="div-center">
+        <div class="content">
+            <form action="Login" method="post">
+                <div class="form-group">
+                    <label for="login">Login</label>
+                    <input name="login" type="text" class="form-control" id="login" placeholder="Login">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="Registration">
                     <button type="button" class="btn btn-link">Signup</button>
-                    <a href="${pageContext.request.contextPath}/index.jsp">
-                        <button type="button" class="btn btn-link" >Back</button>
-                    </a>
-                    <div class="text-danger">
-                        <h5>${requestScope.Error}</h5>
-                    </div>
-                </form>
-            </div>
+                </a>
+                <a href="${pageContext.request.contextPath}/index.jsp">
+                    <button type="button" class="btn btn-link">Back</button>
+                </a>
+                <div class="text-danger">
+                    <h5>${requestScope.Error}</h5>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </body>
 </html>
