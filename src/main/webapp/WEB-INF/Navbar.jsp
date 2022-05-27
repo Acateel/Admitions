@@ -1,7 +1,7 @@
 <%@ page import="com.adminitions.entities.users.User" %>
 <%@ page import="com.adminitions.entities.users.Role" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="uk_UA"/>
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="locales.content"/>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -22,6 +22,15 @@
         %>
         <div>
             <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Language
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?locale=">English</a>
+                        <a class="dropdown-item" href="?locale=uk_UA">Ukrainian</a>
+                    </div>
+                </li>
                 <%if (user == null || user.getRole() == Role.UNKNOWN) {%>
                 <li class="active">
                     <a href="Login">
