@@ -17,16 +17,43 @@
 </head>
 <body>
 <jsp:include page="../Navbar.jsp"/>
-<h1>All Faculties</h1>
-<table>
-    <c:forEach var="faculty" items="${requestScope.faculties}">
-        <ul>
-            <li>Id: <c:out value="${faculty.id}"/></li>
-            <li>Name: <c:out value="${faculty.name}"/></li>
-            <li>Budget seats: <c:out value="${faculty.budgetSeats}"/></li>
-            <li>Total seats: <c:out value="${faculty.totalSeats}"/></li>
-        </ul>
-    </c:forEach>
-</table>
+<div class="container">
+    <h1>All Faculties</h1>
+    <form action="Faculty" method="post">
+        <label for="order">Order</label>
+        <select name="order" id="order">
+            <option value="byId">by Id</option>
+            <option value="byName">by Name (A-Z)</option>
+            <option value="byNameRevers">by Name (Z-A)</option>
+            <option value="byBudget">by Budget seats</option>
+            <option value="byTotal">by Total seats</option>
+        </select>
+        <button>
+            Order
+        </button>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Budget seats</th>
+            <th scope="col">Total seats</th>
+            <th scope="col">Requests</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="faculty" items="${requestScope.faculties}">
+            <tr>
+                <th scope="row"><c:out value="${faculty.id}"/></th>
+                <td><c:out value="${faculty.name}"/></td>
+                <td><c:out value="${faculty.budgetSeats}"/></td>
+                <td><c:out value="${faculty.totalSeats}"/></td>
+                <td><a href="#">See requests</a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
