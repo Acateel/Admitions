@@ -23,4 +23,9 @@
             com.adminitions.admitions.listeners.FacultyDaoListener
         </listener-class>
     </listener>
+    <listener>
+        <listener-class>
+            com.adminitions.admitions.listeners.RequestDaoListener
+        </listener-class>
+    </listener>
 </web-app>
