@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Taras
@@ -6,9 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="locales.content"/>
 <html>
 <head>
-    <title>Login</title>
+    <title><fmt:message key="login"/></title>
     <jsp:include page="../bootstrapHead.html"/>
     <style>
         .back {
@@ -49,19 +52,19 @@
         <div class="content">
             <form action="Login" method="post">
                 <div class="form-group">
-                    <label for="login">Login</label>
-                    <input name="login" type="text" class="form-control" id="login" placeholder="Login">
+                    <label for="login"><fmt:message key="login_field"/></label>
+                    <input name="login" type="text" class="form-control" id="login" placeholder="<fmt:message key="login_field"/>">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password"><fmt:message key="password"/></label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="<fmt:message key="password"/>">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary"><fmt:message key="login"/></button>
                 <a href="Registration">
-                    <button type="button" class="btn btn-link">Signup</button>
+                    <button type="button" class="btn btn-link"><fmt:message key="register"/></button>
                 </a>
                 <a href="${pageContext.request.contextPath}/index.jsp">
-                    <button type="button" class="btn btn-link">Back</button>
+                    <button type="button" class="btn btn-link"><fmt:message key="back"/></button>
                 </a>
                 <div class="text-danger">
                     <h5>${requestScope.Error}</h5>
