@@ -67,8 +67,6 @@ w
 G.idea/sonarlint/issuestore/1/8/188792529ee886cbdc6616248007f7a96c73e03d,d\a\da0f9009654350422df3c20f0f6bb4835ee4de6d
 w
 G.idea/sonarlint/issuestore/8/4/84e47ea35f445eb5238128908f068928322bf283,3\d\3d1ca924db7ef78f0dd0db0a435213aec2448d88
-|
-Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
 Z
 *src/main/webapp/WEB-INF/bootstrapHead.html,f\7\f7aa141c10c18917e3128345282485db2735d696
 f

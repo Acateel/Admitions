@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "FacultyServlet", value = "/FacultyServlet")
+@WebServlet(name = "FacultyServlet", value = "/Faculty")
 public class FacultyServlet extends HttpServlet {
     private transient FacultyDao facultyDao;
 
