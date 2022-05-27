@@ -11,6 +11,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @WebServlet(name = "LoginServlet", value = "/Login")
 public class LoginServlet extends HttpServlet {
@@ -23,6 +25,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+
+        ResourceBundle bundle = getResourceBundle(request);
 
         UserDao userDao = (UserDao) getServletContext().getAttribute("UserDao");
 
@@ -37,13 +41,22 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("index.jsp");
             }
             else{
-                request.setAttribute("Error", "User with this login and password not found");
+                request.setAttribute("Error", bundle.getString("login_error"));
                 doGet(request, response);
             }
         } catch (DaoException e) {
             // add log and response
             throw new RuntimeException(e);
         }
+    }
+
+    private ResourceBundle getResourceBundle(HttpServletRequest request) {
+        String locale = (String) request.getSession().getAttribute("lang");
+        if(locale.length() > 0){
+            String[] lamgs = locale.split("_");
+            return ResourceBundle.getBundle("locales.content", new Locale(lamgs[0], lamgs[1]));
+        }
+        return ResourceBundle.getBundle("locales.content", new Locale(locale));
     }
 
     private void addFullNameInSession(HttpSession session, User user) throws DaoException {

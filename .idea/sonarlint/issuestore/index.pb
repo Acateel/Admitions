@@ -104,7 +104,5 @@ u
 Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
 o
 ?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
-n
->src/main/java/com/adminitions/admitions/auth/LoginServlet.java,0\a\0ae4f2944cbc92e3ee639cbf43107a6fb50bb31e
 x
 Hsrc/main/java/com/adminitions/admitions/listeners/ApplicantListener.java,a\7\a754b424ac56342cdecf69034db26e427ffdad27
