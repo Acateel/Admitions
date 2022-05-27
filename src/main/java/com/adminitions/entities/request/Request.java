@@ -90,7 +90,8 @@ public class Request extends Entity {
     @Override
     public String toString() {
         return "Request{" +
-                "status=" + status +
+                "id=" + getId() +
+                ", status=" + status +
                 ", facultiesId=" + facultiesId +
                 ", applicantId=" + applicantId +
                 ", mainSubject=" + mainSubject +
