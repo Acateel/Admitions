@@ -86,4 +86,19 @@ public class Request extends Entity {
     public void setPublishTime(Time publishTime) {
         this.publishTime = publishTime;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "status=" + status +
+                ", facultiesId=" + facultiesId +
+                ", applicantId=" + applicantId +
+                ", mainSubject=" + mainSubject +
+                ", secondSubject=" + secondSubject +
+                ", subSubject=" + subSubject +
+                ", ratingScore=" + ratingScore +
+                ", averageAttestationScore=" + averageAttestationScore +
+                ", publishTime=" + publishTime +
+                '}';
+    }
 }
