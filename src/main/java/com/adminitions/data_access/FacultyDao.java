@@ -5,6 +5,7 @@ import com.adminitions.entities.Faculty;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FacultyDao extends BaseDao<Faculty> {
@@ -21,6 +22,13 @@ public class FacultyDao extends BaseDao<Faculty> {
             "delete from faculties where faculty_name=?;";
     private static final String SQL_UPDATE =
             "UPDATE faculties SET faculty_name=?, budget_seats=?, total_seats=? WHERE id=?;";
+
+    private static final String SQL_SELECT_ALL_BY_NAME =
+            "select * from faculties order by faculty_name;";
+    private static final String SQL_SELECT_ALL_BY_BUDGET =
+            "select * from faculties order by budget_seats;";
+    private static final String SQL_SELECT_ALL_BY_TOTAL =
+            "select * from faculties order by total_seats;";
 
     public FacultyDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -47,6 +55,74 @@ public class FacultyDao extends BaseDao<Faculty> {
         return faculties;
     }
 
+    public List<Faculty> findAllByName() throws DaoException {
+        List<Faculty> faculties = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_BY_NAME);
+            while (resultSet.next()) {
+                faculties.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return faculties;
+    }
+
+    public List<Faculty> findAllByNameRevers() throws DaoException {
+        List<Faculty> faculties = findAllByName();
+        Collections.reverse(faculties);
+        return faculties;
+    }
+
+    public List<Faculty> findAllByBudget() throws DaoException {
+        List<Faculty> faculties = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_BY_BUDGET);
+            while (resultSet.next()) {
+                faculties.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        Collections.reverse(faculties);
+        return faculties;
+    }
+
+    public List<Faculty> findAllByTotal() throws DaoException {
+        List<Faculty> faculties = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_BY_TOTAL);
+            while (resultSet.next()) {
+                faculties.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        Collections.reverse(faculties);
+        return faculties;
+    }
+
     @Override
     public Faculty findEntityById(int id) throws DaoException {
         Faculty faculty;
@@ -69,7 +145,7 @@ public class FacultyDao extends BaseDao<Faculty> {
     }
 
     @Override
-    public  boolean delete(Faculty entity) throws DaoException {
+    public boolean delete(Faculty entity) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -109,7 +185,7 @@ public class FacultyDao extends BaseDao<Faculty> {
     }
 
     @Override
-    public  boolean create(Faculty entity) throws DaoException {
+    public boolean create(Faculty entity) throws DaoException {
         boolean createComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -130,7 +206,7 @@ public class FacultyDao extends BaseDao<Faculty> {
         return createComplete;
     }
 
-    public boolean update(Faculty entity) throws DaoException{
+    public boolean update(Faculty entity) throws DaoException {
         boolean createComplete;
         Connection connection = null;
         PreparedStatement statement = null;
