@@ -18,28 +18,30 @@
 <body>
 <jsp:include page="../Navbar.jsp"/>
 <div class="container">
-    <h1>All Faculties</h1>
+    <h1><fmt:message key="all_faculties"/></h1>
     <form action="Faculty" method="post">
-        <label for="order">Order</label>
+        <label for="order">
+            <fmt:message key="order"/>
+        </label>
         <select name="order" id="order">
-            <option value="byId">by Id</option>
-            <option value="byName">by Name (A-Z)</option>
-            <option value="byNameRevers">by Name (Z-A)</option>
-            <option value="byBudget">by Budget seats</option>
-            <option value="byTotal">by Total seats</option>
+            <option value="byId"><fmt:message key="by_id"/></option>
+            <option value="byName"><fmt:message key="by_name"/></option>
+            <option value="byNameRevers"><fmt:message key="by_name_reverse"/></option>
+            <option value="byBudget"><fmt:message key="by_budget_seats"/></option>
+            <option value="byTotal"><fmt:message key="by_total_seats"/></option>
         </select>
         <button>
-            Order
+            <fmt:message key="order_button"/>
         </button>
     </form>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Budget seats</th>
-            <th scope="col">Total seats</th>
-            <th scope="col">Requests</th>
+            <th scope="col"><fmt:message key="id"/></th>
+            <th scope="col"><fmt:message key="name"/></th>
+            <th scope="col"><fmt:message key="budget_seats"/></th>
+            <th scope="col"><fmt:message key="total_sears"/></th>
+            <th scope="col"><fmt:message key="request"/></th>
         </tr>
         </thead>
         <tbody>
@@ -49,7 +51,7 @@
                 <td><c:out value="${faculty.name}"/></td>
                 <td><c:out value="${faculty.budgetSeats}"/></td>
                 <td><c:out value="${faculty.totalSeats}"/></td>
-                <td><a href="#">See requests</a></td>
+                <td><a href="#"><fmt:message key="request_href"/></a></td>
             </tr>
         </c:forEach>
         </tbody>
