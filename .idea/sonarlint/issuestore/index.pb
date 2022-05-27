@@ -9,8 +9,6 @@ U
 %.mvn/wrapper/maven-wrapper.properties,3\2\32e074f71d16c1e88ac02aa83592ca6ad1fd98a8
 Z
 *.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 b
 2src/main/java/com/adminitions/entities/Entity.java,f\f\ff4d8d8db2451a6a401eec7b07d49d6e7b1f0a51
 k
@@ -70,8 +68,6 @@ G.idea/sonarlint/issuestore/8/4/84e47ea35f445eb5238128908f068928322bf283,3\d\3d
 Z
 *src/main/webapp/WEB-INF/bootstrapHead.html,f\7\f7aa141c10c18917e3128345282485db2735d696
 f
-6src/main/java/com/adminitions/data_access/UserDao.java,3\9\3908a3ab0eaf1b5385f7e67987c8606cadf892da
-f
 6src/main/java/com/adminitions/entities/users/User.java,c\8\c8621aa693cc220dea4a85e7a4e0a036baccb796
 f
 6src/main/java/com/adminitions/entities/users/Role.java,3\a\3afd1f5b04f5472d41b2b7a2c1bc3e0231c32fdd
@@ -86,10 +82,6 @@ g
 7src/main/java/com/adminitions/validators/Validator.java,e\2\e239bcf090929e76e4b9279b21b97f34ec27f46c
 s
 Csrc/main/java/com/adminitions/admitions/listeners/UserListener.java,d\a\dae937fdf9adb0c23846b3d56e6b77ebcab64cb7
-e
-5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
-k
-;src/main/java/com/adminitions/data_access/ApplicantDao.java,2\c\2c5f74f2a1addad0345f58507f64d6b8112831da
 }
 Msrc/main/java/com/adminitions/admitions/listeners/ConnectionPoolListener.java,8\0\809e46f0c0373748ea9193a2f7c9fef121f721d2
 o
