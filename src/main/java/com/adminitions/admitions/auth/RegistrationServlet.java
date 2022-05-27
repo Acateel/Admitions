@@ -12,9 +12,12 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @WebServlet(name = "RegistrationServlet", value = "/Registration")
 public class RegistrationServlet extends HttpServlet {
+    private ResourceBundle bundle;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/auth/register.jsp").forward(request, response);
@@ -24,6 +27,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
         Applicant applicant = new Applicant();
+        bundle = getResourceBundle(request);
         setUserAndApplicant(request, response, user, applicant);
         addToDb(request, response, user, applicant);
 
@@ -34,15 +38,16 @@ public class RegistrationServlet extends HttpServlet {
         response.sendRedirect("index.jsp");
     }
 
+
     private void addToDb(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant) throws ServletException, IOException {
         UserDao userDao = (UserDao) getServletContext().getAttribute("UserDao");
         ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
 
         if (applicantExist(applicant, applicantDao)) {
-            request.setAttribute("EmailError", "This applicant exist");
+            request.setAttribute("EmailError", bundle.getString("applicant_exist"));
             doGet(request, response);
         } else if (userExist(user, userDao)) {
-            request.setAttribute("EmailError", "This user exist");
+            request.setAttribute("EmailError", bundle.getString("user_exist"));
             doGet(request, response);
         } else {
             try {
@@ -113,7 +118,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkEmail(HttpServletRequest request, HttpServletResponse response, String email)
             throws ServletException, IOException {
         if (!Validator.checkEmail(email)) {
-            request.setAttribute("EmailError", "Email is not format");
+            request.setAttribute("EmailError", bundle.getString("email_error"));
             doGet(request, response);
         }
     }
@@ -121,7 +126,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkPassword(HttpServletRequest request, HttpServletResponse response, String password)
             throws ServletException, IOException {
         if (!Validator.checkPassword(password)) {
-            request.setAttribute("PasswordError", "Minimum eight characters, at least one letter and one number");
+            request.setAttribute("PasswordError", bundle.getString("password_error"));
             doGet(request, response);
         }
     }
@@ -130,7 +135,7 @@ public class RegistrationServlet extends HttpServlet {
                                      String password, String passwordRepeat)
             throws ServletException, IOException {
         if (!password.equals(passwordRepeat)) {
-            request.setAttribute("PasswordRepeatError", "Passwords isn`t one the same");
+            request.setAttribute("PasswordRepeatError", bundle.getString("password_repeat_error"));
             doGet(request, response);
         }
     }
@@ -138,7 +143,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkLastName(HttpServletRequest request, HttpServletResponse response, String lastname)
             throws ServletException, IOException {
         if (!Validator.checkName(lastname)) {
-            request.setAttribute("LastNameError", "Last name is not format");
+            request.setAttribute("LastNameError", bundle.getString("last_name_error"));
             doGet(request, response);
         }
     }
@@ -146,7 +151,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkFirstName(HttpServletRequest request, HttpServletResponse response, String firstname)
             throws ServletException, IOException {
         if (!Validator.checkName(firstname)) {
-            request.setAttribute("FirstNameError", "First name is not format");
+            request.setAttribute("FirstNameError", bundle.getString("first_name_error"));
             doGet(request, response);
         }
     }
@@ -154,7 +159,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkSurname(HttpServletRequest request, HttpServletResponse response, String surname)
             throws ServletException, IOException {
         if (!Validator.checkName(surname)) {
-            request.setAttribute("SurnameError", "Surname is not format");
+            request.setAttribute("SurnameError", bundle.getString("surname_error"));
             doGet(request, response);
         }
     }
@@ -162,7 +167,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkCity(HttpServletRequest request, HttpServletResponse response, String city)
             throws ServletException, IOException {
         if (!Validator.checkName(city)) {
-            request.setAttribute("CityError", "City is not format");
+            request.setAttribute("CityError", bundle.getString("city_error"));
             doGet(request, response);
         }
     }
@@ -170,7 +175,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkRegion(HttpServletRequest request, HttpServletResponse response, String region)
             throws ServletException, IOException {
         if (!Validator.checkName(region)) {
-            request.setAttribute("RegionError", "Region is not format");
+            request.setAttribute("RegionError", bundle.getString("region_error"));
             doGet(request, response);
         }
     }
@@ -178,8 +183,17 @@ public class RegistrationServlet extends HttpServlet {
     private void checkEducationInstitution(HttpServletRequest request, HttpServletResponse response, String institution)
             throws ServletException, IOException {
         if (!Validator.checkInstitutionName(institution)) {
-            request.setAttribute("InstitutionError", "Institution is not format");
+            request.setAttribute("InstitutionError", bundle.getString("institution_error"));
             doGet(request, response);
         }
+    }
+
+    private ResourceBundle getResourceBundle(HttpServletRequest request) {
+        String locale = (String) request.getSession().getAttribute("lang");
+        if(locale.length() > 0){
+            String[] lang = locale.split("_");
+            return ResourceBundle.getBundle("locales.content", new Locale(lang[0], lang[1]));
+        }
+        return ResourceBundle.getBundle("locales.content", new Locale(locale));
     }
 }
