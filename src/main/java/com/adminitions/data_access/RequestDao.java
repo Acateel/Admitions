@@ -24,18 +24,6 @@ public class RequestDao extends BaseDao<Request> {
         );
         RequestDao requestDao = new RequestDao(pool);
 
-        Request request = new Request();
-        request.setStatus(RequestStatus.NOT_PROCESSED);
-        request.setFacultiesId(2);
-        request.setApplicantId(2);
-        request.setMainSubject(188);
-        request.setSecondSubject(182);
-        request.setSubSubject(179);
-        request.setRatingScore(0);
-        request.setAverageAttestationScore(10.3f);
-        request.setPublishTime(new Time(new Date().getTime()));
-
-        requestDao.create(request);
     }
 
     private static final String SQL_SELECT_ALL =
@@ -45,6 +33,14 @@ public class RequestDao extends BaseDao<Request> {
     private static final String SQL_INSERT =
             "INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time) " +
                     "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String SQL_DELETE_BY_ID =
+            "delete from request where id=?;";
+
+    private static final String SQL_DELETE_BY_NAME =
+            "DELETE FROM request WHERE faculties_id=? AND applicant_id=?;";
+
+    private static final String SQL_UPDATE =
+            "UPDATE request SET `status`=?, faculties_id=?, applicant_id=?, main_subject=?, second_subject=?, sub_subject=?, rating_score=?, average_attestation_score=?, publish_time=? WHERE id=?;";
 
     public RequestDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -94,12 +90,43 @@ public class RequestDao extends BaseDao<Request> {
 
     @Override
     boolean delete(Request entity) throws DaoException {
-        return false;
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_NAME);
+            statement.setInt(1, entity.getFacultiesId());
+            statement.setInt(2, entity.getApplicantId());
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
     boolean delete(int id) throws DaoException {
-        return false;
+        boolean deleteComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_ID);
+            statement.setInt(1, id);
+            int changeCount = statement.executeUpdate();
+            deleteComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return deleteComplete;
     }
 
     @Override
@@ -122,8 +149,28 @@ public class RequestDao extends BaseDao<Request> {
         return createComplete;
     }
 
+    public boolean update(Request entity) throws DaoException{
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE);
+            prepareStatement(entity, statement);
+            statement.setInt(10, entity.getId());
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
+    }
+
     private void prepareStatement(Request entity, PreparedStatement statement) throws SQLException {
-        statement.setString(1,RequestStatus.getStatusString(entity.getStatus()));
+        statement.setString(1, RequestStatus.getStatusString(entity.getStatus()));
         statement.setInt(2, entity.getFacultiesId());
         statement.setInt(3, entity.getApplicantId());
         statement.setInt(4, entity.getMainSubject());
