@@ -33,8 +33,6 @@ G.idea/sonarlint/issuestore/1/f/1f1763f358c257ea3515417352b82b0165647ad1,4\4\44
 Rsrc/main/java/com/adminitions/data_access/connection_pool/BasicConnectionPool.java,b\2\b22787322098a8e1fd7aa5d9b4ae3b1977072467
 c
 3src/main/java/com/adminitions/entities/Faculty.java,b\d\bd7c4c1b4b8d98278e171f20949ef7131e14c843
-b
-2src/main/webapp/WEB-INF/faculty/show_faculties.jsp,4\8\483ffc15920d8ca5db1c1dc248333a3b339cf1bc
 f
 6src/main/java/com/adminitions/data_access/BaseDao.java,d\a\da25178987d6b9cf41d502c05767d11ec0f316e9
 w

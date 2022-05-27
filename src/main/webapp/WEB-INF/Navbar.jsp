@@ -10,6 +10,13 @@
                 <fmt:message key="logo"/>
             </a>
         </div>
+        <div>
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="FacultyServlet"><fmt:message key="faculties"/> </a>
+                </li>
+            </ul>
+        </div>
 
         <%
             User user;
