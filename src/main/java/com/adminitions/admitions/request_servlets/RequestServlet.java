@@ -13,10 +13,15 @@ public class RequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            int facultiesId = (int)request.getAttribute("faculty_id");
-            RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
-            request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
-            request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);
+            if(request.getParameter("faculty_id") != null) {
+                int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
+                RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
+                request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
+                request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);
+            }
+            else{
+                response.sendRedirect("Faculty");
+            }
         } catch (DaoException e) {
             throw new RuntimeException(e);
             // add log and error page

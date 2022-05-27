@@ -51,7 +51,7 @@
                 <td><c:out value="${faculty.name}"/></td>
                 <td><c:out value="${faculty.budgetSeats}"/></td>
                 <td><c:out value="${faculty.totalSeats}"/></td>
-                <td><a href="#"><fmt:message key="request_href"/></a></td>
+                <td><a href="Request?faculty_id=<c:out value="${faculty.id}"/>"><fmt:message key="request_href"/></a></td>
             </tr>
         </c:forEach>
         </tbody>
