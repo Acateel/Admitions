@@ -1,4 +1,4 @@
-package com.adminitions.firtres;
+package com.adminitions.admitions.firtres;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
