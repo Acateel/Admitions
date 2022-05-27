@@ -1,32 +1,14 @@
 package com.adminitions.data_access;
 
 import com.adminitions.data_access.connection_pool.BasicConnectionPool;
-import com.adminitions.entities.Entity;
-import com.adminitions.entities.Faculty;
 import com.adminitions.entities.request.Request;
 import com.adminitions.entities.request.RequestStatus;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 public class RequestDao extends BaseDao<Request> {
-
-    public static void main(String[] args) throws SQLException, DaoException {
-        BasicConnectionPool pool = BasicConnectionPool.create(
-                "jdbc:mysql://localhost:3306/admissions",
-                "root",
-                "pass"
-        );
-        RequestDao requestDao = new RequestDao(pool);
-        for(Request request : requestDao.findAllWithFaculty(1)){
-            System.out.println(request);
-        }
-    }
 
     private static final String SQL_SELECT_ALL =
             "select * from request";
@@ -93,6 +75,7 @@ public class RequestDao extends BaseDao<Request> {
         }
         return requests;
     }
+
     @Override
     public Request findEntityById(int id) throws DaoException {
         Request request;
@@ -114,6 +97,29 @@ public class RequestDao extends BaseDao<Request> {
         return request;
     }
 
+    public boolean requestExist(int facultyId, int applicantId){
+        boolean exist = false;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID);
+            statement.setInt(1, facultyId);
+            statement.setInt(2, applicantId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            Request request = parseResultSet(resultSet);
+            if (request != null || request.getId() != 0) {
+                exist = true;
+            }
+        } catch (SQLException throwable) {
+            // add log
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return exist;
+    }
 
     @Override
     public boolean delete(Request entity) throws DaoException {
