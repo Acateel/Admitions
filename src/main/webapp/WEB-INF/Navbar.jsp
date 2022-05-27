@@ -24,11 +24,15 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Language
+                        <fmt:message key="language"/>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="?locale=">English</a>
-                        <a class="dropdown-item" href="?locale=uk_UA">Ukrainian</a>
+                        <a class="dropdown-item" href="?locale=">
+                            <fmt:message key="english"/>
+                        </a>
+                        <a class="dropdown-item" href="?locale=uk_UA">
+                            <fmt:message key="ukrainian"/>
+                        </a>
                     </div>
                 </li>
                 <%if (user == null || user.getRole() == Role.UNKNOWN) {%>
