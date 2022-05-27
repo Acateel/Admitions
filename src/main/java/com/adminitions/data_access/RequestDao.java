@@ -23,13 +23,19 @@ public class RequestDao extends BaseDao<Request> {
                 "pass"
         );
         RequestDao requestDao = new RequestDao(pool);
-
+        for(Request request : requestDao.findAllWithFaculty(1)){
+            System.out.println(request);
+        }
     }
 
     private static final String SQL_SELECT_ALL =
             "select * from request";
     private static final String SQL_SELECT_BY_ID =
             "select * from request where id=?";
+    private static final String SQL_SELECT_BY_FACULTY_ID =
+            "select * from request where faculties_id=?";
+    private static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
+            "SELECT * FROM request WHERE faculties_id=? AND applicant_id=?;";
     private static final String SQL_INSERT =
             "INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time) " +
                     "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -67,6 +73,26 @@ public class RequestDao extends BaseDao<Request> {
         return requests;
     }
 
+    public List<Request> findAllWithFaculty(int facultyId) throws DaoException {
+        List<Request> requests = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_FACULTY_ID);
+            statement.setInt(1, facultyId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                requests.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return requests;
+    }
     @Override
     public Request findEntityById(int id) throws DaoException {
         Request request;
@@ -88,8 +114,9 @@ public class RequestDao extends BaseDao<Request> {
         return request;
     }
 
+
     @Override
-    boolean delete(Request entity) throws DaoException {
+    public boolean delete(Request entity) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -110,7 +137,7 @@ public class RequestDao extends BaseDao<Request> {
     }
 
     @Override
-    boolean delete(int id) throws DaoException {
+    public boolean delete(int id) throws DaoException {
         boolean deleteComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -130,7 +157,7 @@ public class RequestDao extends BaseDao<Request> {
     }
 
     @Override
-    boolean create(Request entity) throws DaoException {
+    public boolean create(Request entity) throws DaoException {
         boolean createComplete;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -149,7 +176,7 @@ public class RequestDao extends BaseDao<Request> {
         return createComplete;
     }
 
-    public boolean update(Request entity) throws DaoException{
+    public boolean update(Request entity) throws DaoException {
         boolean createComplete;
         Connection connection = null;
         PreparedStatement statement = null;
