@@ -7,8 +7,12 @@ import com.adminitions.entities.request.Request;
 import com.adminitions.entities.request.RequestStatus;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 public class RequestDao extends BaseDao<Request> {
 
@@ -20,12 +24,27 @@ public class RequestDao extends BaseDao<Request> {
         );
         RequestDao requestDao = new RequestDao(pool);
 
-        System.out.println(requestDao.findEntityById(1));
+        Request request = new Request();
+        request.setStatus(RequestStatus.NOT_PROCESSED);
+        request.setFacultiesId(2);
+        request.setApplicantId(2);
+        request.setMainSubject(188);
+        request.setSecondSubject(182);
+        request.setSubSubject(179);
+        request.setRatingScore(0);
+        request.setAverageAttestationScore(10.3f);
+        request.setPublishTime(new Time(new Date().getTime()));
+
+        requestDao.create(request);
     }
+
     private static final String SQL_SELECT_ALL =
             "select * from request";
     private static final String SQL_SELECT_BY_ID =
             "select * from request where id=?";
+    private static final String SQL_INSERT =
+            "INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time) " +
+                    "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     public RequestDao(BasicConnectionPool connectionPool) {
         super(connectionPool);
@@ -53,7 +72,7 @@ public class RequestDao extends BaseDao<Request> {
     }
 
     @Override
-    Request findEntityById(int id) throws DaoException {
+    public Request findEntityById(int id) throws DaoException {
         Request request;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -85,7 +104,34 @@ public class RequestDao extends BaseDao<Request> {
 
     @Override
     boolean create(Request entity) throws DaoException {
-        return false;
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_INSERT);
+            prepareStatement(entity, statement);
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
+    }
+
+    private void prepareStatement(Request entity, PreparedStatement statement) throws SQLException {
+        statement.setString(1,RequestStatus.getStatusString(entity.getStatus()));
+        statement.setInt(2, entity.getFacultiesId());
+        statement.setInt(3, entity.getApplicantId());
+        statement.setInt(4, entity.getMainSubject());
+        statement.setInt(5, entity.getSecondSubject());
+        statement.setInt(6, entity.getSubSubject());
+        statement.setInt(7, entity.getRatingScore());
+        statement.setFloat(8, entity.getAverageAttestationScore());
+        statement.setTime(9, entity.getPublishTime());
     }
 
     private Request parseResultSet(ResultSet resultSet) throws SQLException {
