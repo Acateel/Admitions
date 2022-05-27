@@ -81,8 +81,6 @@ y
 Isrc/main/java/com/adminitions/admitions/listeners/FacultyDaoListener.java,4\b\4b8ab5c6c39dee1317418845e941de7157b6a08a
 O
 src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
-I
-src/main/webapp/index.jsp,8\e\8e6d3b70c9f5b02570779b0441540d45eceb0ded
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
