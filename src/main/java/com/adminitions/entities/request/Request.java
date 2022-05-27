@@ -12,7 +12,7 @@ public class Request extends Entity {
     private int secondSubject;
     private int subSubject;
     private int ratingScore;
-    private int averageAttestationScore;
+    private float averageAttestationScore;
     private Time publishTime;
 
     public RequestStatus getStatus() {
@@ -71,11 +71,11 @@ public class Request extends Entity {
         this.ratingScore = ratingScore;
     }
 
-    public int getAverageAttestationScore() {
+    public float getAverageAttestationScore() {
         return averageAttestationScore;
     }
 
-    public void setAverageAttestationScore(int averageAttestationScore) {
+    public void setAverageAttestationScore(float averageAttestationScore) {
         this.averageAttestationScore = averageAttestationScore;
     }
 
