@@ -25,6 +25,7 @@ public class RequestServlet extends HttpServlet {
                 int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
                 FacultyDao facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
                 request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
+                request.getSession().setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
                 request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
                 request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);

@@ -1,13 +1,25 @@
 package com.adminitions.admitions.request_servlets;
 
+import com.adminitions.data_access.FacultyDao;
+import com.adminitions.entities.Faculty;
+import com.adminitions.entities.request.Request;
+import com.adminitions.entities.request.RequestStatus;
+import com.adminitions.entities.users.User;
+import com.adminitions.validators.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Time;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @WebServlet(name = "SendRequestServlet", value = "/SendRequest")
 public class SendRequestServlet extends HttpServlet {
+    private ResourceBundle bundle;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/requests/send_request.jsp").forward(request, response);
@@ -15,6 +27,72 @@ public class SendRequestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("index.jsp");
+        bundle = getResourceBundle(request);
+        int facultiesId = ((Faculty)request.getSession().getAttribute("faculty")).getId();
+        int applicantId = ((User)request.getSession().getAttribute("User")).getApplicantId();
+        //initialise
+        Request sendRequest = new Request();
+        sendRequest.setStatus(RequestStatus.NOT_PROCESSED);
+        sendRequest.setFacultiesId(facultiesId);
+        sendRequest.setApplicantId(applicantId);
+        sendRequest.setMainSubject(getMainSubjectScore(request, response));
+        sendRequest.setSecondSubject(getSecondSubjectScore(request, response));
+        sendRequest.setSubSubject(getSubSubjectScore(request, response));
+        sendRequest.setRatingScore(0);
+        sendRequest.setAverageAttestationScore(getAttestationScore(request,response));
+        sendRequest.setPublishTime(new Time(new Date().getTime()));
+
+        PrintWriter writer = response.getWriter();
+        writer.print(sendRequest.toString());
+        writer.close();
+        //response.sendRedirect("Request?faculty_id="+facultiesId);
+    }
+
+    private int getMainSubjectScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String mainSubject = request.getParameter("main_subject");
+        if(!Validator.checkScoreSubject(mainSubject)){
+            request.setAttribute("MainSubjectError", bundle.getString("score_not_format"));
+            doGet(request, response);
+        }
+        return Integer.parseInt(mainSubject);
+    }
+
+    private int getSecondSubjectScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String secondSubject = request.getParameter("second_subject");
+        if(!Validator.checkScoreSubject(secondSubject)){
+            request.setAttribute("SecondSubjectError", bundle.getString("score_not_format"));
+            doGet(request, response);
+        }
+        return Integer.parseInt(secondSubject);
+    }
+
+    private int getSubSubjectScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String subSubject = request.getParameter("sub_subject");
+        if(!Validator.checkScoreSubject(subSubject)){
+            request.setAttribute("SubSubjectError", bundle.getString("score_not_format"));
+            doGet(request, response);
+        }
+        return Integer.parseInt(subSubject);
+    }
+
+    private float getAttestationScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String averageAttestationScore = request.getParameter("average_attestation_score");
+        averageAttestationScore = averageAttestationScore.replace(',', '.');
+        if(!Validator.checkScoreAttestation(averageAttestationScore)){
+            request.setAttribute("AverageScoreError", bundle.getString("score_attestation_not_format"));
+            doGet(request, response);
+        }
+        return Float.parseFloat(averageAttestationScore);
+    }
+
+    private ResourceBundle getResourceBundle(HttpServletRequest request) {
+        String locale = (String) request.getSession().getAttribute("lang");
+        if(locale.length() > 0){
+            String[] lamgs = locale.split("_");
+            return ResourceBundle.getBundle("locales.content", new Locale(lamgs[0], lamgs[1]));
+        }
+        else{
+            return ResourceBundle.getBundle("locales.content");
+        }
     }
 }

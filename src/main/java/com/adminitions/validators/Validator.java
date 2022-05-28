@@ -35,7 +35,7 @@ public class Validator {
     }
     public static boolean checkScoreAttestation(String value){
         try{
-            float score = Float.parseFloat(value);
+            float score = (float) Double.parseDouble(value);
             return score >= 2.0f && score <= 12.0f;
         }
         catch (NumberFormatException exception){
