@@ -16,6 +16,16 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "LoginServlet", value = "/Login")
 public class LoginServlet extends HttpServlet {
+
+    private UserDao userDao;
+    private ApplicantDao applicantDao;
+
+    @Override
+    public void init() throws ServletException {
+        userDao = (UserDao) getServletContext().getAttribute("UserDao");
+        applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/auth/login.jsp").forward(request, response);
@@ -27,8 +37,6 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         ResourceBundle bundle = getResourceBundle(request);
-
-        UserDao userDao = (UserDao) getServletContext().getAttribute("UserDao");
 
         try {
             if(userDao.isExist(login, password)){
@@ -60,7 +68,6 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void addFullNameInSession(HttpSession session, User user) throws DaoException {
-        ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
         Applicant applicant = applicantDao.findEntityById(user.getApplicantId());
         String fullName = applicant.getLastName() + " " + applicant.getName();
         session.setAttribute("Name", fullName);
