@@ -12,5 +12,6 @@
 </head>
 <body>
 <jsp:include page="WEB-INF/Navbar.jsp"/>
+<h2 class="text-info">${requestScope.SendRequestStatus}</h2>
 </body>
 </html>
