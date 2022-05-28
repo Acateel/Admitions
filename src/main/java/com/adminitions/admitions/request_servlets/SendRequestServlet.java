@@ -12,7 +12,6 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Locale;
@@ -20,9 +19,15 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "SendRequestServlet", value = "/SendRequest")
 public class SendRequestServlet extends HttpServlet {
-    private ResourceBundle bundle;
+    private transient ResourceBundle bundle;
+    private transient RequestDao requestDao;
     private static final String BUNDLE_SCORE_NOT_FORMAT = "score_not_format";
     private static final String BUNDLE_SEND_STATUS_KEY = "SendRequestStatus";
+
+    @Override
+    public void init() throws ServletException {
+        requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +45,6 @@ public class SendRequestServlet extends HttpServlet {
     }
 
     private void addRequestToDb(HttpServletRequest request, Request sendRequest) {
-        RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
         try{
             if(!requestDao.requestExist(sendRequest.getFacultiesId(), sendRequest.getApplicantId())){
                 requestDao.create(sendRequest);
