@@ -30,6 +30,9 @@
             <fmt:message key="total_sears"/>: ${requestScope.faculty.totalSeats}
         </li>
     </ul>
+    <form action="Request?faculty_id=${requestScope.faculty.id}" method="post">
+        <button class="btn-check"><fmt:message key="send_request"/></button>
+    </form>
     <h1><fmt:message key="request"/></h1>
     <table class="table table-striped">
         <thead>
