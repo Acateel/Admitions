@@ -17,9 +17,9 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "RegistrationServlet", value = "/Registration")
 public class RegistrationServlet extends HttpServlet {
-    private ResourceBundle bundle;
-    private UserDao userDao;
-    private ApplicantDao applicantDao;
+    private transient ResourceBundle bundle;
+    private transient UserDao userDao;
+    private transient ApplicantDao applicantDao;
 
     @Override
     public void init() throws ServletException {
