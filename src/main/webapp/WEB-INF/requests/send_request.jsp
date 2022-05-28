@@ -16,7 +16,7 @@
 </head>
 <body>
 <jsp:include page="../Navbar.jsp"/>
-<form action="" method="">
+<form action="SendRequest" method="post">
     <div class="container">
         <h1><fmt:message key="send_request"/></h1>
         <p>
