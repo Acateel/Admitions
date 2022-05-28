@@ -23,4 +23,23 @@ public class Validator {
     public static boolean checkInstitutionName(String name){
         return name.matches(REGEX_NAME_INSTITUTION);
     }
+
+    public static boolean checkScoreSubject(String value){
+        try{
+            int score = Integer.parseInt(value);
+            return score >= 100 && score <= 200;
+        }
+        catch (NumberFormatException exception){
+            return false;
+        }
+    }
+    public static boolean checkScoreAttestation(String value){
+        try{
+            float score = Float.parseFloat(value);
+            return score >= 2.0f && score <= 12.0f;
+        }
+        catch (NumberFormatException exception){
+            return false;
+        }
+    }
 }
