@@ -84,10 +84,6 @@ o
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
-u
-Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
-V
-&src/main/webapp/WEB-INF/auth/login.jsp,7\4\747dd3d0851523c57a2e3537b495294abce41e09
 I
 src/main/webapp/index.jsp,8\e\8e6d3b70c9f5b02570779b0441540d45eceb0ded
 9
