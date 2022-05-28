@@ -18,6 +18,15 @@ import java.util.ResourceBundle;
 @WebServlet(name = "RegistrationServlet", value = "/Registration")
 public class RegistrationServlet extends HttpServlet {
     private ResourceBundle bundle;
+    private UserDao userDao;
+    private ApplicantDao applicantDao;
+
+    @Override
+    public void init() throws ServletException {
+        userDao = (UserDao) getServletContext().getAttribute("UserDao");
+        applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/auth/register.jsp").forward(request, response);
@@ -39,10 +48,8 @@ public class RegistrationServlet extends HttpServlet {
     }
 
 
-    private void addToDb(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant) throws ServletException, IOException {
-        UserDao userDao = (UserDao) getServletContext().getAttribute("UserDao");
-        ApplicantDao applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
-
+    private void addToDb(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant)
+            throws ServletException, IOException {
         if (applicantExist(applicant, applicantDao)) {
             request.setAttribute("EmailError", bundle.getString("applicant_exist"));
             doGet(request, response);
@@ -72,7 +79,7 @@ public class RegistrationServlet extends HttpServlet {
         return id > 0;
     }
 
-    private boolean userExist(User user, UserDao userDao){
+    private boolean userExist(User user, UserDao userDao) {
         try {
             return userDao.isExist(user.getLogin(), user.getPassword());
         } catch (DaoException e) {
@@ -190,7 +197,7 @@ public class RegistrationServlet extends HttpServlet {
 
     private ResourceBundle getResourceBundle(HttpServletRequest request) {
         String locale = (String) request.getSession().getAttribute("lang");
-        if(locale.length() > 0){
+        if (locale.length() > 0) {
             String[] lang = locale.split("_");
             return ResourceBundle.getBundle("locales.content", new Locale(lang[0], lang[1]));
         }
