@@ -1,6 +1,7 @@
 package com.adminitions.admitions.request_servlets;
 
 import com.adminitions.data_access.DaoException;
+import com.adminitions.data_access.FacultyDao;
 import com.adminitions.data_access.RequestDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -15,6 +16,8 @@ public class RequestServlet extends HttpServlet {
         try {
             if(request.getParameter("faculty_id") != null) {
                 int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
+                FacultyDao facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
+                request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
                 request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
                 request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);

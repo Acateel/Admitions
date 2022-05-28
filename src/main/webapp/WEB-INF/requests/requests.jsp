@@ -18,9 +18,19 @@
 <body>
 <jsp:include page="../Navbar.jsp"/>
 <div class="container">
+    <h1><fmt:message key="faculty"/></h1>
+    <ul>
+        <li>
+            <fmt:message key="name"/>: ${requestScope.faculty.name}
+        </li>
+        <li>
+            <fmt:message key="budget_seats"/>: ${requestScope.faculty.budgetSeats}
+        </li>
+        <li>
+            <fmt:message key="total_sears"/>: ${requestScope.faculty.totalSeats}
+        </li>
+    </ul>
     <h1><fmt:message key="request"/></h1>
-    <form action="Faculty" method="post">
-    </form>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -38,7 +48,7 @@
         <c:forEach var="request" items="${requestScope.requests}">
             <tr>
                 <th scope="row"><c:out value="${request.id}"/></th>
-                <td>Full name</td>
+                <td><c:out value="${request.applicantId}"/></td>
                 <td><c:out value="${request.mainSubject}"/></td>
                 <td><c:out value="${request.secondSubject}"/></td>
                 <td><c:out value="${request.subSubject}"/></td>
