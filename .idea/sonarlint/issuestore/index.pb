@@ -78,10 +78,6 @@ s
 Csrc/main/java/com/adminitions/admitions/listeners/UserListener.java,d\a\dae937fdf9adb0c23846b3d56e6b77ebcab64cb7
 o
 ?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 e
 5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
 f
@@ -102,7 +98,5 @@ O
 src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
 y
 Isrc/main/java/com/adminitions/admitions/listeners/RequestDaoListener.java,1\e\1e803ac7e4991103ee23c7c9605afeb977f9232d
-R
-"src/main/webapp/WEB-INF/Navbar.jsp,5\0\509929de80aafc53d428fb9153fd52ffaefc284d
 y
 Isrc/main/java/com/adminitions/admitions/listeners/FacultyDaoListener.java,4\b\4b8ab5c6c39dee1317418845e941de7157b6a08a

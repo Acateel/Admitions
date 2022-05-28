@@ -68,7 +68,7 @@
                 } else if (user.getRole() == Role.ADMIN) {
                 %>
                 <li class="active">
-                    <a href="#">Admin</a>
+                    <a href="AdminMenu">Admin</a>
                 </li>
                 <li class="active">
                     <a href="Logout">
