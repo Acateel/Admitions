@@ -1,8 +1,6 @@
 package com.adminitions.admitions.request_servlets;
 
-import com.adminitions.data_access.DaoException;
-import com.adminitions.data_access.FacultyDao;
-import com.adminitions.data_access.RequestDao;
+import com.adminitions.data_access.*;
 import com.adminitions.entities.users.Role;
 import com.adminitions.entities.users.User;
 import jakarta.servlet.*;
@@ -17,16 +15,23 @@ import java.util.ResourceBundle;
 public class RequestServlet extends HttpServlet {
 
     private static final String REQUEST_CHECK_ERROR = "SendRequestError";
-    private ResourceBundle bundle;
+    private transient ResourceBundle bundle;
+
+    private transient FacultyDao facultyDao;
+    private transient RequestDao requestDao;
+
+    @Override
+    public void init() throws ServletException {
+        requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
+        facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             if(request.getParameter("faculty_id") != null) {
                 int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
-                FacultyDao facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
                 request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 request.getSession().setAttribute("faculty", facultyDao.findEntityById(facultiesId));
-                RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
                 request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
                 request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);
             }
@@ -57,7 +62,6 @@ public class RequestServlet extends HttpServlet {
 
     private void checkTwiceSend(HttpServletRequest request, HttpServletResponse response, User user)
             throws ServletException, IOException {
-        RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
         int facultyId = Integer.parseInt(request.getParameter("faculty_id"));
         boolean exist = requestDao.requestExist(facultyId, user.getId());
         if(exist){
