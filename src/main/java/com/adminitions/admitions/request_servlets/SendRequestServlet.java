@@ -1,6 +1,7 @@
 package com.adminitions.admitions.request_servlets;
 
-import com.adminitions.data_access.FacultyDao;
+import com.adminitions.data_access.DaoException;
+import com.adminitions.data_access.RequestDao;
 import com.adminitions.entities.Faculty;
 import com.adminitions.entities.request.Request;
 import com.adminitions.entities.request.RequestStatus;
@@ -20,6 +21,9 @@ import java.util.ResourceBundle;
 @WebServlet(name = "SendRequestServlet", value = "/SendRequest")
 public class SendRequestServlet extends HttpServlet {
     private ResourceBundle bundle;
+    private static final String BUNDLE_SCORE_NOT_FORMAT = "score_not_format";
+    private static final String BUNDLE_SEND_STATUS_KEY = "SendRequestStatus";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/requests/send_request.jsp").forward(request, response);
@@ -28,9 +32,31 @@ public class SendRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         bundle = getResourceBundle(request);
+
+        Request sendRequest = getSendRequest(request, response);
+        addRequestToDb(request, sendRequest);
+
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
+    private void addRequestToDb(HttpServletRequest request, Request sendRequest) {
+        RequestDao requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
+        try{
+            if(!requestDao.requestExist(sendRequest.getFacultiesId(), sendRequest.getApplicantId())){
+                requestDao.create(sendRequest);
+                request.setAttribute(BUNDLE_SEND_STATUS_KEY, bundle.getString("send_request_success"));
+            }
+            else{
+                request.setAttribute(BUNDLE_SEND_STATUS_KEY, bundle.getString("send_request_not_success"));
+            }
+        } catch (DaoException e) {
+            request.setAttribute(BUNDLE_SEND_STATUS_KEY, bundle.getString("send_request_db_problem"));
+        }
+    }
+
+    private Request getSendRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int facultiesId = ((Faculty)request.getSession().getAttribute("faculty")).getId();
         int applicantId = ((User)request.getSession().getAttribute("User")).getApplicantId();
-        //initialise
         Request sendRequest = new Request();
         sendRequest.setStatus(RequestStatus.NOT_PROCESSED);
         sendRequest.setFacultiesId(facultiesId);
@@ -39,19 +65,15 @@ public class SendRequestServlet extends HttpServlet {
         sendRequest.setSecondSubject(getSecondSubjectScore(request, response));
         sendRequest.setSubSubject(getSubSubjectScore(request, response));
         sendRequest.setRatingScore(0);
-        sendRequest.setAverageAttestationScore(getAttestationScore(request,response));
+        sendRequest.setAverageAttestationScore(getAttestationScore(request, response));
         sendRequest.setPublishTime(new Time(new Date().getTime()));
-
-        PrintWriter writer = response.getWriter();
-        writer.print(sendRequest.toString());
-        writer.close();
-        //response.sendRedirect("Request?faculty_id="+facultiesId);
+        return sendRequest;
     }
 
     private int getMainSubjectScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String mainSubject = request.getParameter("main_subject");
         if(!Validator.checkScoreSubject(mainSubject)){
-            request.setAttribute("MainSubjectError", bundle.getString("score_not_format"));
+            request.setAttribute("MainSubjectError", bundle.getString(BUNDLE_SCORE_NOT_FORMAT));
             doGet(request, response);
         }
         return Integer.parseInt(mainSubject);
@@ -60,7 +82,7 @@ public class SendRequestServlet extends HttpServlet {
     private int getSecondSubjectScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String secondSubject = request.getParameter("second_subject");
         if(!Validator.checkScoreSubject(secondSubject)){
-            request.setAttribute("SecondSubjectError", bundle.getString("score_not_format"));
+            request.setAttribute("SecondSubjectError", bundle.getString(BUNDLE_SCORE_NOT_FORMAT));
             doGet(request, response);
         }
         return Integer.parseInt(secondSubject);
@@ -69,7 +91,7 @@ public class SendRequestServlet extends HttpServlet {
     private int getSubSubjectScore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String subSubject = request.getParameter("sub_subject");
         if(!Validator.checkScoreSubject(subSubject)){
-            request.setAttribute("SubSubjectError", bundle.getString("score_not_format"));
+            request.setAttribute("SubSubjectError", bundle.getString(BUNDLE_SCORE_NOT_FORMAT));
             doGet(request, response);
         }
         return Integer.parseInt(subSubject);
