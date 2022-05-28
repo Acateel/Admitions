@@ -68,7 +68,7 @@
                 } else if (user.getRole() == Role.ADMIN) {
                 %>
                 <li class="active">
-                    <a href="AdminMenu">Admin</a>
+                    <a href="AdminMenu"><fmt:message key="admin"/></a>
                 </li>
                 <li class="active">
                     <a href="Logout">
