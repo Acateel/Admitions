@@ -19,21 +19,6 @@
 <jsp:include page="../Navbar.jsp"/>
 <div class="container">
     <h1><fmt:message key="all_faculties"/></h1>
-    <form action="Faculty" method="post">
-        <label for="order">
-            <fmt:message key="order"/>
-        </label>
-        <select name="order" id="order">
-            <option value="byId"><fmt:message key="by_id"/></option>
-            <option value="byName"><fmt:message key="by_name"/></option>
-            <option value="byNameRevers"><fmt:message key="by_name_reverse"/></option>
-            <option value="byBudget"><fmt:message key="by_budget_seats"/></option>
-            <option value="byTotal"><fmt:message key="by_total_seats"/></option>
-        </select>
-        <button>
-            <fmt:message key="order_button"/>
-        </button>
-    </form>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -53,9 +38,21 @@
                 <td><c:out value="${faculty.name}"/></td>
                 <td><c:out value="${faculty.budgetSeats}"/></td>
                 <td><c:out value="${faculty.totalSeats}"/></td>
-                <td><a href="Request?faculty_id=<c:out value="${faculty.id}"/>"><fmt:message key="request_href"/></a></td>
-                <td><a href="?faculty_id=<c:out value="${faculty.id}"/>"><fmt:message key="delete"/></a></td>
-                <td><a href="?faculty_id=<c:out value="${faculty.id}"/>"><fmt:message key="change"/></a></td>
+                <td>
+                    <form action="Request?faculty_id=<c:out value="${faculty.id}"/>" method="get">
+                        <input type="submit" class="btn text-primary" value=" <fmt:message key="request_href"/>"/>
+                    </form>
+                </td>
+                <td>
+                    <form action="FacultyModeration?faculty_id=<c:out value="${faculty.id}"/>&type=delete" method="post">
+                        <input type="submit" class="btn text-primary" value="<fmt:message key="delete"/>"/>
+                    </form>
+                </td>
+                <td>
+                    <form action="FacultyModeration?faculty_id=<c:out value="${faculty.id}"/>&type=change" method="post">
+                        <input type="submit" class="btn text-primary" value="<fmt:message key="change"/>"/>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

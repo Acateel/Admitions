@@ -30,6 +30,26 @@ public class FacultyModerationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String type = request.getParameter("type");
+        switch (type){
+            case "delete":
+                deleteFaculty(request, response);
+                break;
+            case "change":
+                break;
+            default:
+                doGet(request, response);
+                break;
+        }
+    }
 
+    private void deleteFaculty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int facultyId = Integer.parseInt(request.getParameter("faculty_id"));
+        try {
+            facultyDao.delete(facultyId);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+        doGet(request, response);
     }
 }
