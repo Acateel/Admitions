@@ -3,12 +3,10 @@ package com.adminitions.admitions.finalizers;
 import com.adminitions.data_access.DaoException;
 import com.adminitions.data_access.FacultyDao;
 import com.adminitions.data_access.RequestDao;
-import com.adminitions.data_access.connection_pool.BasicConnectionPool;
 import com.adminitions.entities.Faculty;
 import com.adminitions.entities.request.Request;
 import com.adminitions.entities.request.RequestStatus;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BasicFinalizer extends Finalizer {
@@ -18,7 +16,7 @@ public class BasicFinalizer extends Finalizer {
     }
 
     @Override
-    public void finalize() throws DaoException {
+    public void finalizeRequests() throws DaoException {
         List<Faculty> faculties = facultyDao.findAll();
         precessed(faculties);
         setBudget(faculties);

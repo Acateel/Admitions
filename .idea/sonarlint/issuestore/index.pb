@@ -110,16 +110,12 @@ b
 2src/main/webapp/WEB-INF/faculty/show_faculties.jsp,4\8\483ffc15920d8ca5db1c1dc248333a3b339cf1bc
 V
 &src/main/webapp/WEB-INF/auth/login.jsp,7\4\747dd3d0851523c57a2e3537b495294abce41e09
-b
-2src/main/webapp/WEB-INF/admin_panels/adminMenu.jsp,c\6\c635a123932234ee45fda6449e4343f819f0e072
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
 |
 Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
-s
-Csrc/main/java/com/adminitions/admitions/admin/AdminMenuServlet.java,a\2\a2ee5c319f49d981a5abec75cad9a22e95450bc0
 n
 >src/main/java/com/adminitions/admitions/auth/LoginServlet.java,0\a\0ae4f2944cbc92e3ee639cbf43107a6fb50bb31e
 o

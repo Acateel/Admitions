@@ -22,7 +22,10 @@
     </a>
     <br/>
         <button type="button" class="btn btn-light btn-lg btn-block"><fmt:message key="applicants"/></button>
+    <br/>
+    <a href="Finalizer">
         <button type="button" class="btn btn-warning btn-lg btn-block"><fmt:message key="finalise_information"/></button>
+    </a>
 </div>
 </body>
 </html>

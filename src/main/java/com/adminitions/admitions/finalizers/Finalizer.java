@@ -21,7 +21,7 @@ public abstract class Finalizer {
         passingScoreMath = new BasicPassingScoreMath();
     }
 
-    public abstract void finalize() throws DaoException;
+    public abstract void finalizeRequests() throws DaoException;
 
     public void setRatingScoreMath(RatingScoreMathable ratingScoreMath) {
         this.ratingScoreMath = ratingScoreMath;
