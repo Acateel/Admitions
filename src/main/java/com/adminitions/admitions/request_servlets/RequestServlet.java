@@ -18,10 +18,10 @@ public class RequestServlet extends HttpServlet {
     private static final String REQUEST_CHECK_ERROR = "SendRequestError";
     private transient ResourceBundle bundle;
 
-    private transient FacultyDao facultyDao;
-    private transient RequestDao requestDao;
+    protected transient FacultyDao facultyDao;
+    protected transient RequestDao requestDao;
 
-    private transient  ApplicantDao applicantDao;
+    protected transient  ApplicantDao applicantDao;
 
     @Override
     public void init() throws ServletException {
