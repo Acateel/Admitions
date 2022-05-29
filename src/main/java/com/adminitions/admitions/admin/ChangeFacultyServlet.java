@@ -12,6 +12,7 @@ import java.io.IOException;
 @WebServlet(name = "ChangeFacultyServlet", value = "/ChangeFaculty")
 public class ChangeFacultyServlet extends HttpServlet {
     private transient FacultyDao facultyDao;
+    private transient int facultyId;
 
     @Override
     public void init() throws ServletException {
@@ -20,7 +21,7 @@ public class ChangeFacultyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int facultyId = Integer.parseInt(request.getParameter("faculty_id"));
+        facultyId = Integer.parseInt(request.getParameter("faculty_id"));
         try {
             Faculty faculty = facultyDao.findEntityById(facultyId);
             request.setAttribute("faculty", faculty);
@@ -32,6 +33,26 @@ public class ChangeFacultyServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String name = request.getParameter("faculty_name");
+            int budgetSeats = Integer.parseInt(request.getParameter("budget_seats"));
+            int totalSeats = Integer.parseInt(request.getParameter("total_seats"));
+            updateFaculty(name, budgetSeats, totalSeats);
+            response.sendRedirect("FacultyModeration");
+        }
+        catch (DaoException exception){
+            response.sendRedirect("FacultyModeration");
+        }
+        catch (NumberFormatException exception){
+            doGet(request, response);
+        }
+    }
 
+    private void updateFaculty(String name, int budgetSeats, int totalSeats) throws DaoException {
+        Faculty faculty = facultyDao.findEntityById(facultyId);
+        faculty.setName(name);
+        faculty.setBudgetSeats(budgetSeats);
+        faculty.setTotalSeats(totalSeats);
+        facultyDao.update(faculty);
     }
 }
