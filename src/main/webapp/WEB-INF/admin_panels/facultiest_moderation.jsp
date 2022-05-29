@@ -19,6 +19,9 @@
 <jsp:include page="../Navbar.jsp"/>
 <div class="container">
     <h1><fmt:message key="all_faculties"/></h1>
+    <form action="FacultyModeration?type=add" method="post">
+        <input type="submit" class="btn btn-light" value="<fmt:message key="add_faculty"/>"/>
+    </form>
     <table class="table table-striped">
         <thead>
         <tr>
