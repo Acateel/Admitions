@@ -2,6 +2,8 @@ package com.adminitions.entities.users;
 
 import com.adminitions.entities.Entity;
 
+import java.util.Objects;
+
 public class User extends Entity {
     private String login;
     private String password;
@@ -48,5 +50,18 @@ public class User extends Entity {
                 ", role=" + role +
                 ", applicantId=" + applicantId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return applicantId == user.applicantId && Objects.equals(login, user.login) && Objects.equals(password, user.password) && role == user.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password, role, applicantId);
     }
 }
