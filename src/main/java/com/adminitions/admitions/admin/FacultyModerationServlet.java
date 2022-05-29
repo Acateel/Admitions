@@ -38,6 +38,9 @@ public class FacultyModerationServlet extends HttpServlet {
             case "change":
                 response.sendRedirect("ChangeFaculty?faculty_id="+request.getParameter("faculty_id"));
                 break;
+            case "add":
+                response.sendRedirect("AddFaculty");
+                break;
             default:
                 doGet(request, response);
                 break;
