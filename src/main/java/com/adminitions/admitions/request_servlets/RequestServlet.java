@@ -1,6 +1,7 @@
 package com.adminitions.admitions.request_servlets;
 
 import com.adminitions.data_access.*;
+import com.adminitions.entities.Applicant;
 import com.adminitions.entities.users.Role;
 import com.adminitions.entities.users.User;
 import jakarta.servlet.*;
@@ -20,10 +21,13 @@ public class RequestServlet extends HttpServlet {
     private transient FacultyDao facultyDao;
     private transient RequestDao requestDao;
 
+    private transient  ApplicantDao applicantDao;
+
     @Override
     public void init() throws ServletException {
         requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
         facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
+        applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,7 +61,23 @@ public class RequestServlet extends HttpServlet {
         User user = (User)userData;
         Role userRole = getRole(user);
         checkRole(request, response, userRole);
+        checkBlock(request, response, user);
         checkTwiceSend(request, response, user);
+    }
+
+    private void checkBlock(HttpServletRequest request, HttpServletResponse response, User user)
+            throws ServletException, IOException {
+        try {
+            Applicant applicant = applicantDao.findEntityById(user.getApplicantId());
+            if (applicant.isBlock()) {
+                request.setAttribute(REQUEST_CHECK_ERROR, bundle.getString("applicant_blocked"));
+                doGet(request, response);
+            }
+        }
+        catch (DaoException exception){
+            request.setAttribute(REQUEST_CHECK_ERROR, bundle.getString("problem_in_db"));
+            doGet(request, response);
+        }
     }
 
     private void checkTwiceSend(HttpServletRequest request, HttpServletResponse response, User user)
