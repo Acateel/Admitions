@@ -18,6 +18,9 @@ public class RequestDao extends BaseDao<Request> {
             "select * from request where faculties_id=?";
     private static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
             "SELECT * FROM request WHERE faculties_id=? AND applicant_id=?;";
+
+    private static final String SQL_SELECT_STATUS_ORDER =
+            "select * from request where faculties_id=? and `status`=? order by rating_score desc;";
     private static final String SQL_INSERT =
             "INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time) " +
                     "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -63,6 +66,28 @@ public class RequestDao extends BaseDao<Request> {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQL_SELECT_BY_FACULTY_ID);
             statement.setInt(1, facultyId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                requests.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return requests;
+    }
+
+    public List<Request> findAllWitStatus(int facultyId, RequestStatus status) throws DaoException {
+        List<Request> requests = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_STATUS_ORDER);
+            statement.setInt(1, facultyId);
+            statement.setString(2, RequestStatus.getStatusString(status));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 requests.add(parseResultSet(resultSet));
