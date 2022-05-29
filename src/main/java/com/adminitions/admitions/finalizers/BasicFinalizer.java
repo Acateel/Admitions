@@ -27,8 +27,9 @@ public class BasicFinalizer extends Finalizer {
         for (Faculty faculty : faculties) {
             List<Request> requests = requestDao.findAllWitStatus(faculty.getId(), RequestStatus.ALLOWED);
             int count = 0;
+            int seats = faculty.getBudgetSeats() - requestDao.findAllWitStatus(faculty.getId(), RequestStatus.BUDGET).size();
             for (Request request : requests) {
-                if (count < faculty.getBudgetSeats()) {
+                if (count < seats) {
                     request.setStatus(RequestStatus.BUDGET);
                     requestDao.update(request);
                     setStatusToOtherRequests(request, RequestStatus.RECOMMEND_BUDGET);
@@ -44,7 +45,7 @@ public class BasicFinalizer extends Finalizer {
         for (Faculty faculty : faculties) {
             List<Request> requests = requestDao.findAllWitStatus(faculty.getId(), RequestStatus.ALLOWED);
             int count = 0;
-            int seats = faculty.getTotalSeats() - faculty.getBudgetSeats();
+            int seats = faculty.getTotalSeats() - faculty.getBudgetSeats() - requestDao.findAllWitStatus(faculty.getId(), RequestStatus.CONTRACT).size();
             for (Request request : requests) {
                 if (count < seats) {
                     request.setStatus(RequestStatus.CONTRACT);
