@@ -21,7 +21,9 @@
         <button type="button" class="btn btn-light btn-lg btn-block"><fmt:message key="faculties_menu"/></button>
     </a>
     <br/>
+    <a href="ApplicantModeration">
         <button type="button" class="btn btn-light btn-lg btn-block"><fmt:message key="applicants"/></button>
+    </a>
     <br/>
     <a href="Finalizer">
         <button type="button" class="btn btn-warning btn-lg btn-block"><fmt:message key="finalise_information"/></button>
