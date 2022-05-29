@@ -171,6 +171,28 @@ public class RequestDao extends BaseDao<Request> {
         return exist;
     }
 
+    public Request findRequestByIds(int facultyId, int applicantId) throws DaoException {
+        Request request = new Request();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID);
+            statement.setInt(1, facultyId);
+            statement.setInt(2, applicantId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            request = parseResultSet(resultSet);
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+            // add log
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return request;
+    }
+
     @Override
     public boolean delete(Request entity) throws DaoException {
         boolean deleteComplete;
