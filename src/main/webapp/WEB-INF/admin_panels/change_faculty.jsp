@@ -26,15 +26,25 @@
         <br/>
         <label for="faculty_name">
             <fmt:message key="name"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="name"/>" name="faculty_name" id="faculty_name" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="name"/>"
+               value="${requestScope.faculty.name}"
+               name="faculty_name"
+               id="faculty_name" required>
 
         <label for="budget_seats">
             <fmt:message key="budget_seats"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="budget_seats"/>" name="budget_seats" id="budget_seats" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="budget_seats"/>"
+               value="${requestScope.faculty.budgetSeats}"
+               name="budget_seats" id="budget_seats" required>
 
         <label for="total_seats">
             <fmt:message key="total_sears"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="total_sears"/>" name="total_seats" id="total_seats" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="total_sears"/>"
+               value="${requestScope.faculty.totalSeats}"
+               name="total_seats" id="total_seats" required>
 
         <hr>
         <button type="submit" class="button"><fmt:message key="send_change"/></button>
