@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 @WebServlet(name = "LoginServlet", value = "/Login")
 public class LoginServlet extends HttpServlet {
 
-    private transient UserDao userDao;
-    private transient ApplicantDao applicantDao;
+    protected transient UserDao userDao;
+    protected transient ApplicantDao applicantDao;
 
     @Override
     public void init() throws ServletException {
