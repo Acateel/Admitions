@@ -42,9 +42,9 @@
                 <td><c:out value="${faculty.budgetSeats}"/></td>
                 <td><c:out value="${faculty.totalSeats}"/></td>
                 <td>
-                    <form action="Request?faculty_id=<c:out value="${faculty.id}"/>" method="get">
-                        <input type="submit" class="btn text-primary" value=" <fmt:message key="request_href"/>"/>
-                    </form>
+                    <a href="${pageContext.request.contextPath}/RequestModeration?faculty_id=<c:out value="${faculty.id}"/>">
+                        <input type="button" class="btn text-primary" value=" <fmt:message key="request_href"/>"/>
+                    </a>
                 </td>
                 <td>
                     <form action="FacultyModeration?faculty_id=<c:out value="${faculty.id}"/>&type=delete" method="post">
