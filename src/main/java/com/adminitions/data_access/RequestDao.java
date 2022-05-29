@@ -21,6 +21,9 @@ public class RequestDao extends BaseDao<Request> {
 
     private static final String SQL_SELECT_STATUS_ORDER =
             "select * from request where faculties_id=? and `status`=? order by rating_score desc;";
+    private static final String SQL_SELECT_BY_APPLICANT_ID_AND_STATUS =
+            "select * from request where applicant_id=? and `status`=?";
+
     private static final String SQL_INSERT =
             "INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time) " +
                     "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -87,6 +90,28 @@ public class RequestDao extends BaseDao<Request> {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQL_SELECT_STATUS_ORDER);
             statement.setInt(1, facultyId);
+            statement.setString(2, RequestStatus.getStatusString(status));
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                requests.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return requests;
+    }
+
+    public List<Request> findAllByApplicantId(int applicantId, RequestStatus status) throws DaoException {
+        List<Request> requests = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_APPLICANT_ID_AND_STATUS);
+            statement.setInt(1, applicantId);
             statement.setString(2, RequestStatus.getStatusString(status));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
