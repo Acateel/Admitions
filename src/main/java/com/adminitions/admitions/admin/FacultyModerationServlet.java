@@ -36,6 +36,7 @@ public class FacultyModerationServlet extends HttpServlet {
                 deleteFaculty(request, response);
                 break;
             case "change":
+                response.sendRedirect("ChangeFaculty?faculty_id="+request.getParameter("faculty_id"));
                 break;
             default:
                 doGet(request, response);

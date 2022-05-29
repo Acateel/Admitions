@@ -16,7 +16,7 @@
 </head>
 <body>
 <jsp:include page="../Navbar.jsp"/>
-<form>
+<form action="ChangeFaculty" method="post">
     <div class="container">
         <h1><fmt:message key="change_faculty"/></h1>
         <hr>
