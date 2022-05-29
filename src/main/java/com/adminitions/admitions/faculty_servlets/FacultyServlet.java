@@ -12,7 +12,7 @@ import java.util.List;
 
 @WebServlet(name = "FacultyServlet", value = "/Faculty")
 public class FacultyServlet extends HttpServlet {
-    private transient FacultyDao facultyDao;
+    protected transient FacultyDao facultyDao;
 
     @Override
     public void init() throws ServletException {
