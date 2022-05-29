@@ -100,10 +100,6 @@ k
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 |
 Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
-o
-?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
-u
-Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
 R
 "src/main/webapp/WEB-INF/Navbar.jsp,5\0\509929de80aafc53d428fb9153fd52ffaefc284d
 g
