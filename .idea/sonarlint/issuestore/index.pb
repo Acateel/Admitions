@@ -76,8 +76,6 @@ f
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 s
 Csrc/main/java/com/adminitions/admitions/listeners/UserListener.java,d\a\dae937fdf9adb0c23846b3d56e6b77ebcab64cb7
-e
-5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
 f
 6src/main/java/com/adminitions/data_access/UserDao.java,3\9\3908a3ab0eaf1b5385f7e67987c8606cadf892da
 i
