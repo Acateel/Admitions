@@ -2,6 +2,7 @@ package com.adminitions.admitions.admin;
 
 import com.adminitions.data_access.ApplicantDao;
 import com.adminitions.data_access.DaoException;
+import com.adminitions.entities.Applicant;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -30,6 +31,30 @@ public class ApplicantModerationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String type = request.getParameter("type");
+        switch (type){
+            case "block":
+                setBlock(request, response, true);
+                break;
+            case "deblock":
+                setBlock(request, response, false);
+                break;
+            default:
+                doGet(request,response);
+                break;
+        }
+        doGet(request,response);
+    }
 
+    private void setBlock(HttpServletRequest request, HttpServletResponse response, boolean block) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("applicant_id"));
+        try {
+            Applicant applicant = applicantDao.findEntityById(id);
+            applicant.setBlock(block);
+            applicantDao.update(applicant);
+        } catch (DaoException e) {
+            // add log
+            doGet(request, response);
+        }
     }
 }

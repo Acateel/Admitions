@@ -29,7 +29,6 @@
             <th scope="col"><fmt:message key="status"/></th>
             <th scope="col"><fmt:message key="block"/></th>
             <th scope="col"><fmt:message key="remove_block"/></th>
-            <th scope="col"><fmt:message key="add_to_realize"/></th>
         </tr>
         </thead>
         <tbody>
@@ -41,18 +40,13 @@
                 <td><c:out value="${applicant.surname}"/></td>
                 <td><c:out value="${applicant.block}"/></td>
                 <td>
-                    <form action="" method="post">
+                    <form action="ApplicantModeration?type=block&applicant_id=<c:out value="${applicant.id}"/>" method="post">
                         <input type="submit" class="btn text-primary" value="<fmt:message key="block"/>"/>
                     </form>
                 </td>
                 <td>
-                    <form action="" method="post">
+                    <form action="ApplicantModeration?type=deblock&applicant_id=<c:out value="${applicant.id}"/>" method="post">
                         <input type="submit" class="btn text-primary" value="<fmt:message key="remove_block"/>"/>
-                    </form>
-                </td>
-                <td>
-                    <form action="" method="post">
-                        <input type="submit" class="btn text-primary" value="<fmt:message key="add_to_realize"/>"/>
                     </form>
                 </td>
             </tr>
