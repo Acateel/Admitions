@@ -15,7 +15,7 @@ public class RequestDao extends BaseDao<Request> {
     private static final String SQL_SELECT_BY_ID =
             "select * from request where id=?";
     private static final String SQL_SELECT_BY_FACULTY_ID =
-            "select * from request where faculties_id=?";
+            "select * from request where faculties_id=? order by rating_score desc;";
     private static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
             "SELECT * FROM request WHERE faculties_id=? AND applicant_id=?;";
 

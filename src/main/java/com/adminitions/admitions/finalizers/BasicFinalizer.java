@@ -11,42 +11,48 @@ import com.adminitions.entities.request.RequestStatus;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BasicFinalizer extends Finalizer{
-    public static void main(String[] args) throws SQLException, DaoException {
-        BasicConnectionPool pool = BasicConnectionPool.create(
-                "jdbc:mysql://localhost:3306/admissions",
-                "root",
-                "pass"
-        );
-        RequestDao requestDao = new RequestDao(pool);
-        BasicFinalizer finalizer = new BasicFinalizer(new FacultyDao(pool), requestDao);
-        finalizer.finalize();
+public class BasicFinalizer extends Finalizer {
 
-        for(Request request: requestDao.findAllByApplicantId(1, RequestStatus.ALLOWED)){
-            System.out.println(request);
-        }
-    }
     public BasicFinalizer(FacultyDao facultyDao, RequestDao requestDao) {
         super(facultyDao, requestDao);
     }
 
+    @Override
     public void finalize() throws DaoException {
         List<Faculty> faculties = facultyDao.findAll();
         precessed(faculties);
         setBudget(faculties);
+        seContract(faculties);
     }
 
     private void setBudget(List<Faculty> faculties) throws DaoException {
-        for(Faculty faculty : faculties){
+        for (Faculty faculty : faculties) {
             List<Request> requests = requestDao.findAllWitStatus(faculty.getId(), RequestStatus.ALLOWED);
             int count = 0;
-            for(Request request : requests){
-                if(count < faculty.getBudgetSeats()){
+            for (Request request : requests) {
+                if (count < faculty.getBudgetSeats()) {
                     request.setStatus(RequestStatus.BUDGET);
                     requestDao.update(request);
                     setStatusToOtherRequests(request, RequestStatus.RECOMMEND_BUDGET);
+                } else {
+                    break;
                 }
-                else{
+                count++;
+            }
+        }
+    }
+
+    private void seContract(List<Faculty> faculties) throws DaoException {
+        for (Faculty faculty : faculties) {
+            List<Request> requests = requestDao.findAllWitStatus(faculty.getId(), RequestStatus.ALLOWED);
+            int count = 0;
+            int seats = faculty.getTotalSeats() - faculty.getBudgetSeats();
+            for (Request request : requests) {
+                if (count < seats) {
+                    request.setStatus(RequestStatus.CONTRACT);
+                    requestDao.update(request);
+                    setStatusToOtherRequests(request, RequestStatus.RECOMMEND_CONTRACT);
+                } else {
                     break;
                 }
                 count++;
@@ -56,17 +62,17 @@ public class BasicFinalizer extends Finalizer{
 
     private void setStatusToOtherRequests(Request request, RequestStatus status) throws DaoException {
         List<Request> otherRequests = requestDao.findAllByApplicantId(request.getApplicantId(), RequestStatus.ALLOWED);
-        for(Request otherRequest : otherRequests){
+        for (Request otherRequest : otherRequests) {
             otherRequest.setStatus(status);
             requestDao.update(otherRequest);
         }
     }
 
     private void precessed(List<Faculty> faculties) throws DaoException {
-        for(Faculty faculty : faculties){
+        for (Faculty faculty : faculties) {
             List<Request> requests = requestDao.findAllWithFaculty(faculty.getId());
-            for(Request request : requests){
-                if(request.getStatus() == RequestStatus.NOT_PROCESSED){
+            for (Request request : requests) {
+                if (request.getStatus() == RequestStatus.NOT_PROCESSED) {
                     int ratting = ratingScoreMath.setRattingScore(request);
                     request.setRatingScore(ratting);
                     ratingScoreMath.setRattingScore(request);
