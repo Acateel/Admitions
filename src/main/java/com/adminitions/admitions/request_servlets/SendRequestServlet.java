@@ -19,10 +19,10 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "SendRequestServlet", value = "/SendRequest")
 public class SendRequestServlet extends HttpServlet {
-    private transient ResourceBundle bundle;
-    private transient RequestDao requestDao;
-    private static final String BUNDLE_SCORE_NOT_FORMAT = "score_not_format";
-    private static final String BUNDLE_SEND_STATUS_KEY = "SendRequestStatus";
+    protected transient ResourceBundle bundle;
+    protected transient RequestDao requestDao;
+    protected static final String BUNDLE_SCORE_NOT_FORMAT = "score_not_format";
+    protected static final String BUNDLE_SEND_STATUS_KEY = "SendRequestStatus";
 
     @Override
     public void init() throws ServletException {
