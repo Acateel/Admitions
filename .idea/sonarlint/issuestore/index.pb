@@ -96,8 +96,6 @@ R
 "src/main/webapp/WEB-INF/Navbar.jsp,5\0\509929de80aafc53d428fb9153fd52ffaefc284d
 g
 7src/main/webapp/WEB-INF/admin_panels/change_faculty.jsp,9\7\978bae3e376971a807de2a3313ffca40f715765c
-w
-Gsrc/main/java/com/adminitions/admitions/admin/ChangeFacultyServlet.java,1\1\11413f5a516e6ce7220de189292e9e15dae7bf86
 ˆ
 Xsrc/main/java/com/adminitions/admitions/finalizers/rating_score/RatingScoreMathable.java,4\5\45ebd9f9439deb62ab73f0f6dff4cf5e3e3a56fc
 Š
@@ -110,12 +108,8 @@ Zsrc/main/java/com/adminitions/admitions/finalizers/passing_score/PassingScoreMa
 Msrc/main/java/com/adminitions/admitions/listeners/ConnectionPoolListener.java,8\0\809e46f0c0373748ea9193a2f7c9fef121f721d2
 q
 Asrc/main/java/com/adminitions/admitions/finalizers/Finalizer.java,a\e\ae7375cce5ab52958daa28332713d84ff8e637ef
-s
-Csrc/main/java/com/adminitions/admitions/admin/FinalizerServlet.java,3\4\341743d50ff76d02c670cc1f761d9bfacb2c21df
 v
 Fsrc/main/java/com/adminitions/admitions/finalizers/BasicFinalizer.java,7\c\7c4434a92823c1a09b85149a88034853e9db3e12
-}
-Msrc/main/java/com/adminitions/admitions/admin/ApplicantModerationServlet.java,8\6\86b973710ee38de709fd9bbdd209cf22342ecd52
 b
 2src/main/webapp/WEB-INF/admin_panels/adminMenu.jsp,c\6\c635a123932234ee45fda6449e4343f819f0e072
 e
@@ -140,8 +134,6 @@ Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
 k
 ;src/main/webapp/WEB-INF/admin_panels/request_moderation.jsp,f\c\fc57febe6e6689382d939ea42688cea3fea38f8f
-{
-Ksrc/main/java/com/adminitions/admitions/admin/RequestModerationServlet.java,6\7\677e014c756ea2821aa733c64fbaa1a3ce2ef2ca
 i
 9src/main/java/com/adminitions/data_access/RequestDao.java,c\a\ca44f468c8d75f2ef4af3bad71b2ef243794ba9f
 7
