@@ -14,8 +14,8 @@ import java.io.IOException;
 @WebServlet(name = "RequestModerationServlet", value = "/RequestModeration")
 public class RequestModerationServlet extends HttpServlet {
 
-    private transient FacultyDao facultyDao;
-    private transient RequestDao requestDao;
+    protected transient FacultyDao facultyDao;
+    protected transient RequestDao requestDao;
     private transient int facultiesId;
 
     @Override
