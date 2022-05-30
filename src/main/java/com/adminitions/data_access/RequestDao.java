@@ -10,30 +10,30 @@ import java.util.List;
 
 public class RequestDao extends BaseDao<Request> {
 
-    private static final String SQL_SELECT_ALL =
+    protected static final String SQL_SELECT_ALL =
             "select * from request";
-    private static final String SQL_SELECT_BY_ID =
+    protected static final String SQL_SELECT_BY_ID =
             "select * from request where id=?";
-    private static final String SQL_SELECT_BY_FACULTY_ID =
+    protected static final String SQL_SELECT_BY_FACULTY_ID =
             "select * from request where faculties_id=? order by rating_score desc;";
-    private static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
+    protected static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
             "SELECT * FROM request WHERE faculties_id=? AND applicant_id=?;";
 
-    private static final String SQL_SELECT_STATUS_ORDER =
+    protected static final String SQL_SELECT_STATUS_ORDER =
             "select * from request where faculties_id=? and `status`=? order by rating_score desc;";
-    private static final String SQL_SELECT_BY_APPLICANT_ID_AND_STATUS =
+    protected static final String SQL_SELECT_BY_APPLICANT_ID_AND_STATUS =
             "select * from request where applicant_id=? and `status`=?";
 
-    private static final String SQL_INSERT =
+    protected static final String SQL_INSERT =
             "INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time) " +
                     "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String SQL_DELETE_BY_ID =
+    protected static final String SQL_DELETE_BY_ID =
             "delete from request where id=?;";
 
-    private static final String SQL_DELETE_BY_NAME =
+    protected static final String SQL_DELETE_BY_NAME =
             "DELETE FROM request WHERE faculties_id=? AND applicant_id=?;";
 
-    private static final String SQL_UPDATE =
+    protected static final String SQL_UPDATE =
             "UPDATE request SET `status`=?, faculties_id=?, applicant_id=?, main_subject=?, second_subject=?, sub_subject=?, rating_score=?, average_attestation_score=?, publish_time=? WHERE id=?;";
 
     public RequestDao(BasicConnectionPool connectionPool) {

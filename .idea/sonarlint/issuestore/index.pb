@@ -29,8 +29,6 @@ w
 G.idea/sonarlint/issuestore/1/f/1f1763f358c257ea3515417352b82b0165647ad1,4\4\441e6168af36afe9568996929caf6842abd87b08
 ‚
 Rsrc/main/java/com/adminitions/data_access/connection_pool/BasicConnectionPool.java,b\2\b22787322098a8e1fd7aa5d9b4ae3b1977072467
-f
-6src/main/java/com/adminitions/data_access/BaseDao.java,d\a\da25178987d6b9cf41d502c05767d11ec0f316e9
 w
 G.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec,8\6\863e0292fd7e9b3e74dafd6cc01f73ba76346482
 w
@@ -134,8 +132,6 @@ Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
 k
 ;src/main/webapp/WEB-INF/admin_panels/request_moderation.jsp,f\c\fc57febe6e6689382d939ea42688cea3fea38f8f
-i
-9src/main/java/com/adminitions/data_access/RequestDao.java,c\a\ca44f468c8d75f2ef4af3bad71b2ef243794ba9f
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 o
