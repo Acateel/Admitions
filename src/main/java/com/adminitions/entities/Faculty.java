@@ -1,5 +1,7 @@
 package com.adminitions.entities;
 
+import java.util.Objects;
+
 public class Faculty extends Entity {
     private String name;
     private int budgetSeats;
@@ -37,5 +39,18 @@ public class Faculty extends Entity {
                 ", budgetSeats=" + budgetSeats +
                 ", totalSeats=" + totalSeats +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Faculty faculty = (Faculty) o;
+        return budgetSeats == faculty.budgetSeats && totalSeats == faculty.totalSeats && Objects.equals(name, faculty.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, budgetSeats, totalSeats);
     }
 }
