@@ -15,7 +15,7 @@ import java.io.IOException;
 public class FinalizerServlet extends HttpServlet {
     private boolean called = false;
 
-    private transient Finalizer finalizer;
+    protected transient Finalizer finalizer;
 
     @Override
     public void init() throws ServletException {
