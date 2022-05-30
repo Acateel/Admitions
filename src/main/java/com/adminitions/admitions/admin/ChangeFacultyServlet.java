@@ -11,8 +11,8 @@ import java.io.IOException;
 
 @WebServlet(name = "ChangeFacultyServlet", value = "/ChangeFaculty")
 public class ChangeFacultyServlet extends HttpServlet {
-    private transient FacultyDao facultyDao;
-    private transient int facultyId;
+    protected transient FacultyDao facultyDao;
+    protected transient int facultyId;
 
     @Override
     public void init() throws ServletException {
