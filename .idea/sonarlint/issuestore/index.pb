@@ -100,8 +100,6 @@ g
 7src/main/webapp/WEB-INF/admin_panels/change_faculty.jsp,9\7\978bae3e376971a807de2a3313ffca40f715765c
 w
 Gsrc/main/java/com/adminitions/admitions/admin/ChangeFacultyServlet.java,1\1\11413f5a516e6ce7220de189292e9e15dae7bf86
-t
-Dsrc/main/java/com/adminitions/admitions/admin/AddFacultyServlet.java,d\c\dc72415cfdd1eebc3e5b77544e72243641b75a88
 ˆ
 Xsrc/main/java/com/adminitions/admitions/finalizers/rating_score/RatingScoreMathable.java,4\5\45ebd9f9439deb62ab73f0f6dff4cf5e3e3a56fc
 Š
@@ -126,8 +124,6 @@ e
 5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
 m
 =src/main/webapp/WEB-INF/admin_panels/applicant_moderation.jsp,d\b\db1b9d85961610dfb305ce60894449275696d636
-{
-Ksrc/main/java/com/adminitions/admitions/admin/FacultyModerationServlet.java,d\9\d9dc4c0a3203451d73c88422986dcfa7b37af8b1
 V
 &src/main/webapp/WEB-INF/auth/login.jsp,7\4\747dd3d0851523c57a2e3537b495294abce41e09
 ]

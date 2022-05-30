@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @WebServlet(name = "FacultyModerationServlet", value = "/FacultyModeration")
 public class FacultyModerationServlet extends HttpServlet {
-    private transient FacultyDao facultyDao;
+    protected transient FacultyDao facultyDao;
 
     @Override
     public void init() throws ServletException {
