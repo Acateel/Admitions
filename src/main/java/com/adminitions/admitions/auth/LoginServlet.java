@@ -9,6 +9,8 @@ import com.adminitions.entities.users.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -16,23 +18,26 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "LoginServlet", value = "/Login")
 public class LoginServlet extends HttpServlet {
-
+    private static final Logger logger = LogManager.getLogger(LoginServlet.class);
     protected transient UserDao userDao;
     protected transient ApplicantDao applicantDao;
 
     @Override
     public void init() throws ServletException {
+        logger.info("LoginServlet init");
         userDao = (UserDao) getServletContext().getAttribute("UserDao");
         applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("LoginServlet doGet");
         request.getRequestDispatcher("WEB-INF/auth/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("LoginServlet doPost");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 

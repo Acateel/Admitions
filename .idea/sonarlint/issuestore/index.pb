@@ -7,8 +7,6 @@ Q
 mvnw.cmd,1\f\1f1763f358c257ea3515417352b82b0165647ad1
 U
 %.mvn/wrapper/maven-wrapper.properties,3\2\32e074f71d16c1e88ac02aa83592ca6ad1fd98a8
-Z
-*.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a
 b
 2src/main/java/com/adminitions/entities/Entity.java,f\f\ff4d8d8db2451a6a401eec7b07d49d6e7b1f0a51
 k
@@ -122,8 +120,6 @@ Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
 k
 ;src/main/webapp/WEB-INF/admin_panels/request_moderation.jsp,f\c\fc57febe6e6689382d939ea42688cea3fea38f8f
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 o
 ?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
 s
