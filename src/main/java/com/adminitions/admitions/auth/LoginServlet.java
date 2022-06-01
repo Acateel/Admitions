@@ -17,12 +17,14 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 @WebServlet(name = "LoginServlet", value = "/Login")
+//Servlet responsible for logging in
 public class LoginServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(LoginServlet.class);
     protected transient UserDao userDao;
     protected transient ApplicantDao applicantDao;
 
     @Override
+    // initialise Dao classes
     public void init() throws ServletException {
         logger.info("LoginServlet init");
         userDao = (UserDao) getServletContext().getAttribute("UserDao");
@@ -31,44 +33,56 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("LoginServlet doGet");
+        logger.info("LoginServlet GET method");
+        //redirects to the login page
         request.getRequestDispatcher("WEB-INF/auth/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("LoginServlet doPost");
+        logger.info("LoginServlet POST method");
+        // take login and password
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
         ResourceBundle bundle = getResourceBundle(request);
 
         try {
+            // if User with login and password exist
             if(userDao.isExist(login, password)){
+                logger.trace("User exist in DB");
+                // add user in session
                 HttpSession session = request.getSession();
                 User user = userDao.findUser(login, password);
                 session.setAttribute("User", user);
+                // if user is applicant then add full name into session
                 if (user.getRole() == Role.APPLICANT){
+                    logger.trace("User is applicant");
                     addFullNameInSession(session, user);
                 }
+                // back to main page
                 response.sendRedirect("index.jsp");
             }
             else{
+                logger.trace("User with login and password dont exist");
+                // send error message and show login page
                 request.setAttribute("Error", bundle.getString("login_error"));
                 doGet(request, response);
             }
         } catch (DaoException e) {
-            // add log and response
-            throw new RuntimeException(e);
+            logger.error("Login DaoException");
         }
     }
 
     private ResourceBundle getResourceBundle(HttpServletRequest request) {
+        // get language from session
         String locale = (String) request.getSession().getAttribute("lang");
+        // if language dont default
         if(locale.length() > 0){
-            String[] lamgs = locale.split("_");
-            return ResourceBundle.getBundle("locales.content", new Locale(lamgs[0], lamgs[1]));
+            String[] arguments = locale.split("_");
+            return ResourceBundle.getBundle("locales.content", new Locale(arguments[0], arguments[1]));
         }
+        // get default bundle
         return ResourceBundle.getBundle("locales.content", new Locale(locale));
     }
 
