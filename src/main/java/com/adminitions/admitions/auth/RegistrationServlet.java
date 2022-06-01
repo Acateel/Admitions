@@ -10,6 +10,8 @@ import com.adminitions.validators.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -17,63 +19,78 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "RegistrationServlet", value = "/Registration")
 public class RegistrationServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(RegistrationServlet.class);
     protected transient ResourceBundle bundle;
     protected transient UserDao userDao;
     protected transient ApplicantDao applicantDao;
+    private static final String EMAIL_ERROR_MESSAGE_KEY = "EmailError";
 
     @Override
     public void init() throws ServletException {
+        logger.info("Initialize registration servlet");
+        //initialise dao classes
         userDao = (UserDao) getServletContext().getAttribute("UserDao");
         applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Registration GET method");
+        //redirects to the registration page
         request.getRequestDispatcher("WEB-INF/auth/register.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Registration POST method");
         User user = new User();
         Applicant applicant = new Applicant();
         bundle = getResourceBundle(request);
         setUserAndApplicant(request, response, user, applicant);
         addToDb(request, response, user, applicant);
 
+        // add user and applicant full name into session
         HttpSession session = request.getSession();
         session.setAttribute("User", user);
         String fullName = applicant.getLastName() + " " + applicant.getName();
         session.setAttribute("Name", fullName);
+        // redirects to the main page
         response.sendRedirect("index.jsp");
     }
 
 
     private void addToDb(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant)
             throws ServletException, IOException {
+        // if applicant with this email exist in DB
         if (applicantExist(applicant, applicantDao)) {
-            request.setAttribute("EmailError", bundle.getString("applicant_exist"));
+            // send error and redirects to registration page
+            request.setAttribute(EMAIL_ERROR_MESSAGE_KEY, bundle.getString("applicant_exist"));
             doGet(request, response);
         } else if (userExist(user, userDao)) {
-            request.setAttribute("EmailError", bundle.getString("user_exist"));
+            // if user with this email exist in DB
+            // send error and redirects to registration page
+            request.setAttribute(EMAIL_ERROR_MESSAGE_KEY, bundle.getString("user_exist"));
             doGet(request, response);
         } else {
             try {
+                // add applicant and user into DB
                 applicantDao.create(applicant);
                 int id = applicantDao.findEntityId(applicant);
                 user.setApplicantId(id);
                 userDao.create(user);
             } catch (DaoException e) {
-                // add log
-                throw new RuntimeException(e);
+                logger.error("Registration DaoException");
             }
         }
     }
 
     private boolean applicantExist(Applicant applicant, ApplicantDao applicantDao) {
-        int id = 0;
+        int id;
         try {
+            // get id
             id = applicantDao.findEntityId(applicant);
         } catch (DaoException e) {
+            // if applicant with this id not found
             return false;
         }
         return id > 0;
@@ -83,12 +100,15 @@ public class RegistrationServlet extends HttpServlet {
         try {
             return userDao.isExist(user.getLogin(), user.getPassword());
         } catch (DaoException e) {
+            logger.error("User exist DaoException");
             return false;
         }
     }
 
     private void setUserAndApplicant(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant)
             throws ServletException, IOException {
+        // take data from request parameters and check
+        // if check failure redirects into registration with error message
         String email = request.getParameter("email");
         checkEmail(request, response, email);
         String password = request.getParameter("psw");
@@ -108,7 +128,7 @@ public class RegistrationServlet extends HttpServlet {
         String institution = request.getParameter("education");
         checkEducationInstitution(request, response, institution);
 
-        //initialise
+        //initialise if all check completed
         user.setLogin(email);
         user.setPassword(password);
         user.setRole(Role.APPLICANT);
@@ -125,7 +145,7 @@ public class RegistrationServlet extends HttpServlet {
     private void checkEmail(HttpServletRequest request, HttpServletResponse response, String email)
             throws ServletException, IOException {
         if (!Validator.checkEmail(email)) {
-            request.setAttribute("EmailError", bundle.getString("email_error"));
+            request.setAttribute(EMAIL_ERROR_MESSAGE_KEY, bundle.getString("email_error"));
             doGet(request, response);
         }
     }
