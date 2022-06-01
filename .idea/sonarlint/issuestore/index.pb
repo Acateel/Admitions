@@ -90,8 +90,6 @@ k
 ;src/main/java/com/adminitions/entities/request/Request.java,2\6\268d27aa3d4701bd1c72c8eab3643d6e6d060987
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-R
-"src/main/webapp/WEB-INF/Navbar.jsp,5\0\509929de80aafc53d428fb9153fd52ffaefc284d
 g
 7src/main/webapp/WEB-INF/admin_panels/change_faculty.jsp,9\7\978bae3e376971a807de2a3313ffca40f715765c
 ˆ
@@ -136,14 +134,10 @@ o
 ?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
 s
 Csrc/test/java/com/adminitions/admitions/auth/LogoutServletTest.java,e\a\eaa34fe78135aa9cc14deccda6ed12fe45fd524e
-n
->src/main/java/com/adminitions/admitions/auth/LoginServlet.java,0\a\0ae4f2944cbc92e3ee639cbf43107a6fb50bb31e
 u
 Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
 f
 6src/main/java/com/adminitions/entities/users/User.java,c\8\c8621aa693cc220dea4a85e7a4e0a036baccb796
-q
-Asrc/main/java/com/adminitions/admitions/firtres/LocaleFilter.java,3\6\364b7e6e15c5114205ac6225a1863bc695304da3
 |
 Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
 €
@@ -152,8 +146,6 @@ u
 Esrc/test/java/com/adminitions/admitions/firtres/LocaleFilterTest.java,c\a\cab5d59dee775e3cbfa6d6517bee9f3348475bf0
 |
 Lsrc/main/java/com/adminitions/admitions/request_servlets/RequestServlet.java,e\8\e8ae35189c673b99ef1f6834da352c21029999a2
-x
-Hsrc/main/java/com/adminitions/admitions/listeners/ApplicantListener.java,a\7\a754b424ac56342cdecf69034db26e427ffdad27
 €
 Psrc/test/java/com/adminitions/admitions/request_servlets/RequestServletTest.java,d\b\db49796db72614a1a428b26727b80a40a5ce7188
 „
