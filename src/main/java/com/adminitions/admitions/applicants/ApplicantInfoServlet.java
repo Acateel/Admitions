@@ -24,7 +24,7 @@ public class ApplicantInfoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("User");
         if (user == null || user.getRole() != Role.APPLICANT) {
-            response.sendRedirect("WEB-INF/error_page/accessDenied.jsp");
+            request.getRequestDispatcher("WEB-INF/error_page/accessDenied.jsp").forward(request, response);
         } else {
             Applicant applicant = null;
             try {

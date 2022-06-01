@@ -108,10 +108,6 @@ v
 Fsrc/main/java/com/adminitions/admitions/finalizers/BasicFinalizer.java,7\c\7c4434a92823c1a09b85149a88034853e9db3e12
 b
 2src/main/webapp/WEB-INF/admin_panels/adminMenu.jsp,c\6\c635a123932234ee45fda6449e4343f819f0e072
-e
-5src/main/java/com/adminitions/entities/Applicant.java,e\2\e2fa0b6d30cba45122409a4db2e629a617200ab2
-m
-=src/main/webapp/WEB-INF/admin_panels/applicant_moderation.jsp,d\b\db1b9d85961610dfb305ce60894449275696d636
 V
 &src/main/webapp/WEB-INF/auth/login.jsp,7\4\747dd3d0851523c57a2e3537b495294abce41e09
 ]

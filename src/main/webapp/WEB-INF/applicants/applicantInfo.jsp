@@ -21,18 +21,18 @@
     <h2><fmt:message key="user_info"/></h2>
     <ul>
         <li><fmt:message key="id"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="lastname"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="firstname"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="surname"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="email"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="city"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="region"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="education"/> ${requestScope.applicant.id}</li>
-        <li><fmt:message key="block_status"/> ${requestScope.applicant.id}</li>
+        <li><fmt:message key="lastname"/> ${requestScope.applicant.lastName}</li>
+        <li><fmt:message key="firstname"/> ${requestScope.applicant.name}</li>
+        <li><fmt:message key="surname"/> ${requestScope.applicant.surname}</li>
+        <li><fmt:message key="email"/> ${requestScope.applicant.email}</li>
+        <li><fmt:message key="city"/> ${requestScope.applicant.city}</li>
+        <li><fmt:message key="region"/> ${requestScope.applicant.region}</li>
+        <li><fmt:message key="education"/> ${requestScope.applicant.nameEducationalInstitution}</li>
+        <li><fmt:message key="block_status"/> ${requestScope.applicant.block}</li>
     </ul>
     <form enctype="multipart/form-data"
-          action=""
-          method="">
+          action="ApplicantInfo"
+          method="post">
         <fmt:message key="attestation_scan"/> <input type="FILE" name="file"/>
         <input type="submit" name="Upload" value="<fmt:message key="upload"/>" />
     </form>
