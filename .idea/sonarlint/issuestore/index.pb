@@ -120,12 +120,8 @@ Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
 k
 ;src/main/webapp/WEB-INF/admin_panels/request_moderation.jsp,f\c\fc57febe6e6689382d939ea42688cea3fea38f8f
-o
-?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
 s
 Csrc/test/java/com/adminitions/admitions/auth/LogoutServletTest.java,e\a\eaa34fe78135aa9cc14deccda6ed12fe45fd524e
-u
-Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
 f
 6src/main/java/com/adminitions/entities/users/User.java,c\8\c8621aa693cc220dea4a85e7a4e0a036baccb796
 |
