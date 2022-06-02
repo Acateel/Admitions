@@ -10,6 +10,8 @@ import com.adminitions.validators.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -19,6 +21,7 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "SendRequestServlet", value = "/SendRequest")
 public class SendRequestServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(SendRequestServlet.class);
     protected transient ResourceBundle bundle;
     protected transient RequestDao requestDao;
     protected static final String BUNDLE_SCORE_NOT_FORMAT = "score_not_format";
@@ -26,26 +29,33 @@ public class SendRequestServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        logger.info("Send Request Servlet init");
+        // init dao class
         requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Send Request Servlet GET method");
+        // redirect to send request page
         request.getRequestDispatcher("WEB-INF/requests/send_request.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Send Request Servlet POST method");
         bundle = getResourceBundle(request);
-
+        // get request after check
         Request sendRequest = getSendRequest(request, response);
+        // add request to DB
         addRequestToDb(request, sendRequest);
-
+        // redirect to main page
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     private void addRequestToDb(HttpServletRequest request, Request sendRequest) {
         try{
+            // add request if its don`t exits in DB
             if(!requestDao.requestExist(sendRequest.getFacultiesId(), sendRequest.getApplicantId())){
                 requestDao.create(sendRequest);
                 request.setAttribute(BUNDLE_SEND_STATUS_KEY, bundle.getString("send_request_success"));
@@ -54,11 +64,13 @@ public class SendRequestServlet extends HttpServlet {
                 request.setAttribute(BUNDLE_SEND_STATUS_KEY, bundle.getString("send_request_not_success"));
             }
         } catch (DaoException e) {
+            logger.info("Send Request Servlet DaoException");
             request.setAttribute(BUNDLE_SEND_STATUS_KEY, bundle.getString("send_request_db_problem"));
         }
     }
 
     private Request getSendRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // init request
         int facultiesId = ((Faculty)request.getSession().getAttribute("faculty")).getId();
         int applicantId = ((User)request.getSession().getAttribute("User")).getApplicantId();
         Request sendRequest = new Request();
