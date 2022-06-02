@@ -3,6 +3,7 @@ package com.adminitions.data_access;
 import com.adminitions.data_access.connection_pool.BasicConnectionPool;
 import com.adminitions.entities.Applicant;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class ApplicantDao extends BaseDao<Applicant> {
     private static final String SQL_UPDATE =
             "UPDATE applicant SET last_name=?, `name`=?, surname=?, email=?, city=?, region=?, name_educational_institution=?, attestation=?, `block`=? WHERE id=?;";
 
+    private static final String SQL_UPDATE_ATTESTATION =
+            "UPDATE applicant SET attestation=? WHERE id=?;";
     @Override
     public List<Applicant> findAll() throws DaoException {
         List<Applicant> applicants = new ArrayList<>();
@@ -172,6 +175,28 @@ public class ApplicantDao extends BaseDao<Applicant> {
 
             setBasicPrepareStatement(entity, statement);
             statement.setInt(10, entity.getId());
+
+            int changeCount = statement.executeUpdate();
+            createComplete = changeCount > 0;
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return createComplete;
+    }
+
+    public boolean updateAttestation(int id, InputStream stream) throws DaoException {
+        boolean createComplete;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE_ATTESTATION);
+
+            statement.setBlob(1, stream);
+            statement.setInt(2, id);
 
             int changeCount = statement.executeUpdate();
             createComplete = changeCount > 0;

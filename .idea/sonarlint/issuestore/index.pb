@@ -72,8 +72,6 @@ f
 6src/main/java/com/adminitions/data_access/UserDao.java,3\9\3908a3ab0eaf1b5385f7e67987c8606cadf892da
 i
 9src/main/java/com/adminitions/data_access/FacultyDao.java,8\0\80db7888f4dbb111e4271c52b297fca341970302
-k
-;src/main/java/com/adminitions/data_access/ApplicantDao.java,2\c\2c5f74f2a1addad0345f58507f64d6b8112831da
 q
 Asrc/main/java/com/adminitions/entities/request/RequestStatus.java,c\a\ca87e42491c31b7eb6b4581fdfca399b0bb4fd9f
 O
@@ -176,3 +174,11 @@ m
 =src/test/java/com/adminitions/data_access/RequestDaoTest.java,9\a\9ac6634ff486c3584e429af678c48be889afe429
 r
 Bsrc/test/java/com/adminitions/admitions/auth/LoginServletTest.java,c\5\c5d5beaaebb0af619d5ea377868b18b2a972f38c
+Z
+*.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+u
+Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
+n
+>src/main/java/com/adminitions/admitions/auth/LoginServlet.java,0\a\0ae4f2944cbc92e3ee639cbf43107a6fb50bb31e

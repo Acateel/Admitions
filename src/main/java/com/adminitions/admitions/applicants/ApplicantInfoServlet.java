@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 @WebServlet(name = "ApplicantInfoServlet", value = "/ApplicantInfo")
+@MultipartConfig
 public class ApplicantInfoServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(ApplicantInfoServlet.class);
     protected transient ApplicantDao applicantDao;
@@ -51,6 +52,22 @@ public class ApplicantInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("Applicant info POST method");
-        // this method empty because don't have realised how to convert file from request to a Blob class object
+        // get user from session
+        User user = (User) request.getSession().getAttribute("User");
+        // if user not found or his not applicant redirect to access denied page
+        if (user == null || user.getRole() != Role.APPLICANT) {
+            request.getRequestDispatcher("WEB-INF/error_page/accessDenied.jsp").forward(request, response);
+        } else {
+            // add scan in DB
+            int applicantId = user.getApplicantId();
+            Part part = request.getPart("file");
+            try {
+                applicantDao.updateAttestation(applicantId, part.getInputStream());
+            } catch (DaoException e) {
+                logger.error("Update attestation DaoException");
+            }
+        }
+        // redirect to status info page
+        doGet(request, response);
     }
 }
