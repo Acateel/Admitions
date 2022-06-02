@@ -30,39 +30,66 @@
         <br/>
         <label for="email">
             <fmt:message key="email"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="email"/>" name="email" id="email" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="email"/>"
+               value="${requestScope.email}"
+               name="email" id="email" required>
         <p class="text-danger">${requestScope.EmailError}</p>
 
         <label for="psw"><fmt:message key="password"/><span class="text-danger">*</span></label>
-        <input type="password" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="password"/>" name="psw" id="psw" required>
+        <input type="password" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="password"/>"
+               value="${requestScope.psw}"
+               name="psw" id="psw" required>
         <p class="text-danger">${requestScope.PasswordError}</p>
 
         <label for="psw-repeat"><fmt:message key="password_repeat"/><span class="text-danger">*</span></label>
-        <input type="password" class="form-control" placeholder="<fmt:message key="password_repeat"/>" name="psw-repeat" id="psw-repeat" required>
+        <input type="password" class="form-control"
+               placeholder="<fmt:message key="password_repeat"/>"
+               value="${requestScope.psw_repeat}"
+               name="psw-repeat" id="psw-repeat" required>
         <p class="text-danger">${requestScope.PasswordRepeatError}</p>
 
         <label for="lastname"><fmt:message key="lastname"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="lastname"/>" name="lastname" id="lastname" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="lastname"/>"
+               value="${requestScope.lastname}"
+               name="lastname" id="lastname" required>
         <p class="text-danger">${requestScope.LastNameError}</p>
 
         <label for="firstname"><fmt:message key="firstname"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="firstname"/>" name="firstname" id="firstname" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="firstname"/>"
+               value="${requestScope.firstname}"
+               name="firstname" id="firstname" required>
         <p class="text-danger">${requestScope.FirstNameError}</p>
 
         <label for="surname"><fmt:message key="surname"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="surname"/>" name="surname" id="surname" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="surname"/>"
+               value="${requestScope.surname}"
+               name="surname" id="surname" required>
         <p class="text-danger">${requestScope.SurnameError}</p>
 
         <label for="city"><fmt:message key="city"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="city"/>" name="city" id="city" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="city"/>"
+               value="${requestScope.city}"
+               name="city" id="city" required>
         <p class="text-danger">${requestScope.CityError}</p>
 
         <label for="region"><fmt:message key="region"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="region"/>" name="region" id="region" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="region"/>"
+               value="${requestScope.region}"
+               name="region" id="region" required>
         <p class="text-danger">${requestScope.RegionError}</p>
 
         <label for="education"><fmt:message key="education"/><span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="<fmt:message key="enter"/> <fmt:message key="education"/>" name="education" id="education" required>
+        <input type="text" class="form-control"
+               placeholder="<fmt:message key="enter"/> <fmt:message key="education"/>"
+               value="${requestScope.education}"
+               name="education" id="education" required>
         <p class="text-danger">${requestScope.InstitutionError}</p>
         <hr>
         <button type="submit" class="button"><fmt:message key="register"/></button>

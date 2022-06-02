@@ -46,14 +46,15 @@ public class RegistrationServlet extends HttpServlet {
         User user = new User();
         Applicant applicant = new Applicant();
         bundle = getResourceBundle(request);
-        setUserAndApplicant(request, response, user, applicant);
-        addToDb(request, response, user, applicant);
-
-        // add user and applicant full name into session
-        HttpSession session = request.getSession();
-        session.setAttribute("User", user);
-        String fullName = applicant.getLastName() + " " + applicant.getName();
-        session.setAttribute("Name", fullName);
+        // if check complete and user and applicant initialise
+        if(setUserAndApplicant(request, response, user, applicant)) {
+            addToDb(request, response, user, applicant);
+            // add user and applicant full name into session
+            HttpSession session = request.getSession();
+            session.setAttribute("User", user);
+            String fullName = applicant.getLastName() + " " + applicant.getName();
+            session.setAttribute("Name", fullName);
+        }
         // redirects to the main page
         response.sendRedirect("index.jsp");
     }
@@ -105,114 +106,149 @@ public class RegistrationServlet extends HttpServlet {
         }
     }
 
-    private void setUserAndApplicant(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant)
+    private boolean setUserAndApplicant(HttpServletRequest request, HttpServletResponse response, User user, Applicant applicant)
             throws ServletException, IOException {
-        // take data from request parameters and check
-        // if check failure redirects into registration with error message
+        // take data from request parameters
         String email = request.getParameter("email");
-        checkEmail(request, response, email);
         String password = request.getParameter("psw");
-        checkPassword(request, response, password);
         String repeatPassword = request.getParameter("psw-repeat");
-        checkRepeatPassword(request, response, password, repeatPassword);
         String lastname = request.getParameter("lastname");
-        checkLastName(request, response, lastname);
         String firstname = request.getParameter("firstname");
-        checkFirstName(request, response, firstname);
         String surname = request.getParameter("surname");
-        checkSurname(request, response, surname);
         String city = request.getParameter("city");
-        checkCity(request, response, city);
         String region = request.getParameter("region");
-        checkRegion(request, response, region);
         String institution = request.getParameter("education");
-        checkEducationInstitution(request, response, institution);
 
-        //initialise if all check completed
-        user.setLogin(email);
-        user.setPassword(password);
-        user.setRole(Role.APPLICANT);
+        //get data in request
+        request.setAttribute("email", email);
+        request.setAttribute("psw", password);
+        request.setAttribute("psw_repeat", repeatPassword);
+        request.setAttribute("lastname", lastname);
+        request.setAttribute("firstname", firstname);
+        request.setAttribute("surname", surname);
+        request.setAttribute("city", city);
+        request.setAttribute("region", region);
+        request.setAttribute("education", institution);
 
-        applicant.setEmail(email);
-        applicant.setLastName(lastname);
-        applicant.setName(firstname);
-        applicant.setSurname(surname);
-        applicant.setCity(city);
-        applicant.setRegion(region);
-        applicant.setNameEducationalInstitution(institution);
+        // if check failure redirects into registration with error message
+        boolean check1 = checkEmail(request, response, email);
+        boolean check2 = checkPassword(request, response, password);
+        boolean check3 = checkRepeatPassword(request, response, password, repeatPassword);
+        boolean check4 = checkLastName(request, response, lastname);
+        boolean check5 = checkFirstName(request, response, firstname);
+        boolean check6 = checkSurname(request, response, surname);
+        boolean check7 = checkCity(request, response, city);
+        boolean check8 = checkRegion(request, response, region);
+        boolean check9 = checkEducationInstitution(request, response, institution);
+
+        if (check1 && check2 && check3 && check4 && check5 && check6 && check7 && check8 && check9) {
+            //initialise if all check completed
+            user.setLogin(email);
+            user.setPassword(password);
+            user.setRole(Role.APPLICANT);
+
+            applicant.setEmail(email);
+            applicant.setLastName(lastname);
+            applicant.setName(firstname);
+            applicant.setSurname(surname);
+            applicant.setCity(city);
+            applicant.setRegion(region);
+            applicant.setNameEducationalInstitution(institution);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    private void checkEmail(HttpServletRequest request, HttpServletResponse response, String email)
+    private boolean checkEmail(HttpServletRequest request, HttpServletResponse response, String email)
             throws ServletException, IOException {
         if (!Validator.checkEmail(email)) {
             request.setAttribute(EMAIL_ERROR_MESSAGE_KEY, bundle.getString("email_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkPassword(HttpServletRequest request, HttpServletResponse response, String password)
+    private boolean checkPassword(HttpServletRequest request, HttpServletResponse response, String password)
             throws ServletException, IOException {
         if (!Validator.checkPassword(password)) {
             request.setAttribute("PasswordError", bundle.getString("password_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkRepeatPassword(HttpServletRequest request, HttpServletResponse response,
-                                     String password, String passwordRepeat)
+    private boolean checkRepeatPassword(HttpServletRequest request, HttpServletResponse response,
+                                        String password, String passwordRepeat)
             throws ServletException, IOException {
         if (!password.equals(passwordRepeat)) {
             request.setAttribute("PasswordRepeatError", bundle.getString("password_repeat_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkLastName(HttpServletRequest request, HttpServletResponse response, String lastname)
+    private boolean checkLastName(HttpServletRequest request, HttpServletResponse response, String lastname)
             throws ServletException, IOException {
         if (!Validator.checkName(lastname)) {
             request.setAttribute("LastNameError", bundle.getString("last_name_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkFirstName(HttpServletRequest request, HttpServletResponse response, String firstname)
+    private boolean checkFirstName(HttpServletRequest request, HttpServletResponse response, String firstname)
             throws ServletException, IOException {
         if (!Validator.checkName(firstname)) {
             request.setAttribute("FirstNameError", bundle.getString("first_name_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkSurname(HttpServletRequest request, HttpServletResponse response, String surname)
+    private boolean checkSurname(HttpServletRequest request, HttpServletResponse response, String surname)
             throws ServletException, IOException {
         if (!Validator.checkName(surname)) {
             request.setAttribute("SurnameError", bundle.getString("surname_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkCity(HttpServletRequest request, HttpServletResponse response, String city)
+    private boolean checkCity(HttpServletRequest request, HttpServletResponse response, String city)
             throws ServletException, IOException {
         if (!Validator.checkName(city)) {
             request.setAttribute("CityError", bundle.getString("city_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkRegion(HttpServletRequest request, HttpServletResponse response, String region)
+    private boolean checkRegion(HttpServletRequest request, HttpServletResponse response, String region)
             throws ServletException, IOException {
         if (!Validator.checkName(region)) {
             request.setAttribute("RegionError", bundle.getString("region_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
-    private void checkEducationInstitution(HttpServletRequest request, HttpServletResponse response, String institution)
+    private boolean checkEducationInstitution(HttpServletRequest request, HttpServletResponse response, String institution)
             throws ServletException, IOException {
         if (!Validator.checkInstitutionName(institution)) {
             request.setAttribute("InstitutionError", bundle.getString("institution_error"));
             doGet(request, response);
+            return false;
         }
+        return true;
     }
 
     private ResourceBundle getResourceBundle(HttpServletRequest request) {

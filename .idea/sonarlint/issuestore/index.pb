@@ -114,8 +114,6 @@ d
 4src/main/webapp/WEB-INF/admin_panels/add_faculty.jsp,5\8\580a17a072598f6f28479fb5909e86b562dd749c
 n
 >src/main/webapp/WEB-INF/admin_panels/facultiest_moderation.jsp,9\c\9c888a22f32ceb7fd486fed910258e2cfe7ecea1
-Y
-)src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
 k
 ;src/main/webapp/WEB-INF/admin_panels/request_moderation.jsp,f\c\fc57febe6e6689382d939ea42688cea3fea38f8f
 s
@@ -158,7 +156,5 @@ Z
 *.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-u
-Esrc/main/java/com/adminitions/admitions/auth/RegistrationServlet.java,b\a\ba363b3ba553432844087c9197a91d4f29f49f81
 n
 >src/main/java/com/adminitions/admitions/auth/LoginServlet.java,0\a\0ae4f2944cbc92e3ee639cbf43107a6fb50bb31e
