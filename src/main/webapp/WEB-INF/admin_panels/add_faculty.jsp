@@ -30,13 +30,13 @@
                placeholder="<fmt:message key="enter"/> <fmt:message key="name"/>"
                name="faculty_name"
                id="faculty_name" required>
-
+        <br/>
         <label for="budget_seats">
             <fmt:message key="budget_seats"/><span class="text-danger">*</span></label>
         <input type="text" class="form-control"
                placeholder="<fmt:message key="enter"/> <fmt:message key="budget_seats"/>"
                name="budget_seats" id="budget_seats" required>
-
+        <br/>
         <label for="total_seats">
             <fmt:message key="total_sears"/><span class="text-danger">*</span></label>
         <input type="text" class="form-control"
@@ -44,7 +44,7 @@
                name="total_seats" id="total_seats" required>
 
         <hr>
-        <button type="submit" class="button"><fmt:message key="add_faculty"/></button>
+        <button type="submit" class="button btn btn-light"><fmt:message key="add_faculty"/></button>
     </div>
 </form>
 </body>

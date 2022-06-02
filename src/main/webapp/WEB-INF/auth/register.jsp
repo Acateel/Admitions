@@ -92,7 +92,7 @@
                name="education" id="education" required>
         <p class="text-danger">${requestScope.InstitutionError}</p>
         <hr>
-        <button type="submit" class="button"><fmt:message key="register"/></button>
+        <button type="submit" class="button btn text-primary"><fmt:message key="register"/></button>
     </div>
 
     <div class="container">

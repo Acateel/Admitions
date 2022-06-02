@@ -86,8 +86,6 @@ k
 ;src/main/java/com/adminitions/entities/request/Request.java,2\6\268d27aa3d4701bd1c72c8eab3643d6e6d060987
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-g
-7src/main/webapp/WEB-INF/admin_panels/change_faculty.jsp,9\7\978bae3e376971a807de2a3313ffca40f715765c
 ˆ
 Xsrc/main/java/com/adminitions/admitions/finalizers/rating_score/RatingScoreMathable.java,4\5\45ebd9f9439deb62ab73f0f6dff4cf5e3e3a56fc
 Š
@@ -106,14 +104,8 @@ b
 2src/main/webapp/WEB-INF/admin_panels/adminMenu.jsp,c\6\c635a123932234ee45fda6449e4343f819f0e072
 V
 &src/main/webapp/WEB-INF/auth/login.jsp,7\4\747dd3d0851523c57a2e3537b495294abce41e09
-a
-1src/main/webapp/WEB-INF/requests/send_request.jsp,d\f\df25872b604d49313fa955d79641760bc86307f0
 I
 src/main/webapp/index.jsp,8\e\8e6d3b70c9f5b02570779b0441540d45eceb0ded
-d
-4src/main/webapp/WEB-INF/admin_panels/add_faculty.jsp,5\8\580a17a072598f6f28479fb5909e86b562dd749c
-n
->src/main/webapp/WEB-INF/admin_panels/facultiest_moderation.jsp,9\c\9c888a22f32ceb7fd486fed910258e2cfe7ecea1
 k
 ;src/main/webapp/WEB-INF/admin_panels/request_moderation.jsp,f\c\fc57febe6e6689382d939ea42688cea3fea38f8f
 s

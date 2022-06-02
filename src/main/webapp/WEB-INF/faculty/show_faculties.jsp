@@ -30,7 +30,7 @@
             <option value="byBudget"><fmt:message key="by_budget_seats"/></option>
             <option value="byTotal"><fmt:message key="by_total_seats"/></option>
         </select>
-        <button>
+        <button class="btn btn-light">
             <fmt:message key="order_button"/>
         </button>
     </form>

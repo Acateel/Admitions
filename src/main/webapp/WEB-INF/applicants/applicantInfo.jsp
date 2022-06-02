@@ -59,8 +59,10 @@
     <form enctype="multipart/form-data"
           action="ApplicantInfo"
           method="post">
-        <fmt:message key="attestation_scan"/> <input type="file" name="file" id="file"/>
-        <input type="submit" name="Upload" value="<fmt:message key="upload"/>"/>
+        <label for="file"><fmt:message key="attestation_scan"/></label>
+        <br/>
+        <input type="file" name="file" id="file"/>
+        <input class="btn text-primary" type="submit" name="Upload" value="<fmt:message key="upload"/>"/>
     </form>
 </div>
 </body>

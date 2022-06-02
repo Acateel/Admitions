@@ -48,7 +48,7 @@
         <p class="text-danger">${requestScope.AverageScoreError}</p>
 
         <hr>
-        <button type="submit" class="button"><fmt:message key="send_request"/></button>
+        <button type="submit" class="button btn btn-light"><fmt:message key="send_request"/></button>
     </div>
 </form>
 </body>

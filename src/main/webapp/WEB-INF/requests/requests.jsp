@@ -31,7 +31,7 @@
         </li>
     </ul>
     <form action="Request?faculty_id=${requestScope.faculty.id}" method="post">
-        <button class="btn-check"><fmt:message key="send_request"/></button>
+        <button class="btn btn-light btn-check"><fmt:message key="send_request"/></button>
         <p class="text-danger">${requestScope.SendRequestError}</p>
     </form>
     <h1><fmt:message key="request"/></h1>
