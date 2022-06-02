@@ -7,6 +7,8 @@ import com.adminitions.entities.users.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -14,7 +16,7 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "RequestServlet", value = "/Request")
 public class RequestServlet extends HttpServlet {
-
+    private static final Logger logger = LogManager.getLogger(RequestServlet.class);
     private static final String REQUEST_CHECK_ERROR = "SendRequestError";
     private transient ResourceBundle bundle;
 
@@ -25,41 +27,54 @@ public class RequestServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        logger.info("Request servlet init");
+        //init dao classes
         requestDao = (RequestDao) getServletContext().getAttribute("RequestDao");
         facultyDao = (FacultyDao) getServletContext().getAttribute("FacultyDao");
         applicantDao = (ApplicantDao) getServletContext().getAttribute("ApplicantDao");
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Request servlet GET method");
         try {
+            // if request parameter have faculty id
             if(request.getParameter("faculty_id") != null) {
                 int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
+                // send faculty
                 request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 request.getSession().setAttribute("faculty", facultyDao.findEntityById(facultiesId));
+                // send requests
                 request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
+                // redirect to requests page
                 request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);
             }
             else{
+                // back to faculty page
                 response.sendRedirect("Faculty");
             }
         } catch (DaoException e) {
-            throw new RuntimeException(e);
-            // add log and error page
+            logger.error("Request servlet DaoException");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Request servlet POST method");
         bundle = getResourceBundle(request);
+        // check user from session
         checkUser(request, response);
+        // if check complete redirect to send request page
         request.getRequestDispatcher("WEB-INF/requests/send_request.jsp").forward(request, response);
     }
 
     private void checkUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // get user from session
         Object userData = request.getSession().getAttribute("User");
+        // check user exist
         checkAuth(request, response, userData);
         User user = (User)userData;
         Role userRole = getRole(user);
+        //check role block and twice send
         checkRole(request, response, userRole);
         checkBlock(request, response, user);
         checkTwiceSend(request, response, user);
@@ -75,6 +90,7 @@ public class RequestServlet extends HttpServlet {
             }
         }
         catch (DaoException exception){
+            logger.error("Request servlet DaoException");
             request.setAttribute(REQUEST_CHECK_ERROR, bundle.getString("problem_in_db"));
             doGet(request, response);
         }
