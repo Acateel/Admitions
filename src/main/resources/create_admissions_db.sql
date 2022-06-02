@@ -51,7 +51,7 @@ CREATE TABLE `Applicant`
     city varchar(255) not null,
     region varchar(255) not null,
     name_educational_institution text not null,
-    attestation blob,
+    attestation mediumblob,
     `block` bool not null
 );
 
@@ -77,7 +77,6 @@ INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Фа�
 INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Юридичний факультет', '1', '2');
 INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Факультет прикладної математики', '1', '1');
 INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Факультет філології', '1', '2');
-INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Факультет авіаційної інженерії', '1', '1');
 
 INSERT INTO `user` (login, password, role, applicant_id) 
 VALUES ('admin', 'admin', 'admin', 0);
