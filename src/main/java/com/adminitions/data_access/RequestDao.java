@@ -16,6 +16,10 @@ public class RequestDao extends BaseDao<Request> {
             "select * from request where id=?";
     protected static final String SQL_SELECT_BY_FACULTY_ID =
             "select * from request where faculties_id=? order by rating_score desc;";
+
+    protected static final String SQL_SELECT_BY_FACULTY_ID_PAGES =
+            "select * from request where faculties_id=? order by rating_score desc LIMIT ?, ?;";
+
     protected static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
             "SELECT * FROM request WHERE faculties_id=? AND applicant_id=?;";
 
@@ -69,6 +73,29 @@ public class RequestDao extends BaseDao<Request> {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQL_SELECT_BY_FACULTY_ID);
             statement.setInt(1, facultyId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                requests.add(parseResultSet(resultSet));
+            }
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return requests;
+    }
+
+    public List<Request> findAllWithFaculty(int facultyId, int count, int page) throws DaoException {
+        List<Request> requests = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_BY_FACULTY_ID_PAGES);
+            statement.setInt(1, facultyId);
+            statement.setInt(2, count*(page-1));
+            statement.setInt(3, count);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 requests.add(parseResultSet(resultSet));
@@ -159,9 +186,7 @@ public class RequestDao extends BaseDao<Request> {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             Request request = parseResultSet(resultSet);
-            if (request != null || request.getId() != 0) {
-                exist = true;
-            }
+            exist = request.getId() != 0;
         } catch (SQLException throwable) {
             // add log
         } finally {
