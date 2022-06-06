@@ -20,6 +20,9 @@ public class RequestDao extends BaseDao<Request> {
     protected static final String SQL_SELECT_BY_FACULTY_ID_PAGES =
             "select * from request where faculties_id=? order by rating_score desc LIMIT ?, ?;";
 
+    protected static final String SQL_COUNT_BY_FACULTY_ID =
+            "select count(id) from request where faculties_id=?;";
+
     protected static final String SQL_SELECT_BY_FACULTY_AND_APPLICANT_ID =
             "SELECT * FROM request WHERE faculties_id=? AND applicant_id=?;";
 
@@ -107,6 +110,26 @@ public class RequestDao extends BaseDao<Request> {
             close(connection);
         }
         return requests;
+    }
+
+    public int findCountByFaculty(int facultyId) throws DaoException {
+        int count;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_COUNT_BY_FACULTY_ID);
+            statement.setInt(1, facultyId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            count = resultSet.getInt(1);
+        } catch (SQLException throwable) {
+            throw new DaoException(throwable.getMessage());
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return count;
     }
 
     public List<Request> findAllWitStatus(int facultyId, RequestStatus status) throws DaoException {
