@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "RequestServlet", value = "/Request")
 public class RequestServlet extends HttpServlet {
+    private static final int COUNT_IN_PAGE = 5;
     private static final Logger logger = LogManager.getLogger(RequestServlet.class);
     private static final String REQUEST_CHECK_ERROR = "SendRequestError";
     private transient ResourceBundle bundle;
@@ -40,7 +41,7 @@ public class RequestServlet extends HttpServlet {
             // if request parameter have faculty id
             if(request.getParameter("faculty_id") != null) {
                 int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
-                int page = getPage(request);
+                int page = getPage(request, facultiesId);
                 request.setAttribute("page", page);
                 // send faculty
                 request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
@@ -59,17 +60,20 @@ public class RequestServlet extends HttpServlet {
         }
     }
 
-    private int getPage(HttpServletRequest request) {
+    private int getPage(HttpServletRequest request, int facultyId) {
         int page;
-        if(request.getParameter("page") != null) {
-            try {
-                page = Integer.parseInt(request.getParameter("page"));
-            }
-            catch (NumberFormatException exception){
+        try{
+            page = Integer.parseInt(request.getParameter("page"));
+            if(page <=0){
                 page = 1;
             }
+            int count = requestDao.findCountByFaculty(facultyId);
+            int maxPage = count/COUNT_IN_PAGE + 1;
+            if(page > maxPage){
+                page = maxPage;
+            }
         }
-        else{
+        catch (NumberFormatException | DaoException exception){
             page = 1;
         }
         return page;
