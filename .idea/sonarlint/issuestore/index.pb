@@ -156,8 +156,6 @@ Ksrc/main/java/com/adminitions/admitions/admin/RequestModerationServlet.java,6\
 Lsrc/main/java/com/adminitions/admitions/applicants/ApplicantInfoServlet.java,6\2\628423f72e424f12efda1c206e4b5e9d5117f3ea
 |
 Lsrc/main/java/com/adminitions/admitions/faculty_servlets/FacultyServlet.java,c\d\cd6dd1258079f69683689814d141949af2bfc26f
-|
-Lsrc/main/java/com/adminitions/admitions/request_servlets/RequestServlet.java,e\8\e8ae35189c673b99ef1f6834da352c21029999a2
 €
 Psrc/main/java/com/adminitions/admitions/request_servlets/SendRequestServlet.java,1\8\18cd320ce3ed8761d955e740bac5274388128361
 u
@@ -170,8 +168,6 @@ d
 4src/main/webapp/WEB-INF/applicants/applicantInfo.jsp,d\8\d841a974af4250d5804af5d0cac6343a0a5a6fb4
 Y
 )src/main/webapp/WEB-INF/auth/register.jsp,d\9\d9f52193b8aa07baeff55f96600ddb51181bf04b
-]
--src/main/webapp/WEB-INF/requests/requests.jsp,7\2\722a2ed0e38ebecb4d40bcf11bbe8bbbac3ed914
 a
 1src/main/webapp/WEB-INF/requests/send_request.jsp,d\f\df25872b604d49313fa955d79641760bc86307f0
 g
@@ -190,3 +186,9 @@ q
 Asrc/main/java/com/adminitions/admitions/firtres/LocaleFilter.java,3\6\364b7e6e15c5114205ac6225a1863bc695304da3
 ‚
 Rsrc/main/java/com/adminitions/data_access/connection_pool/BasicConnectionPool.java,b\2\b22787322098a8e1fd7aa5d9b4ae3b1977072467
+f
+6src/main/java/com/adminitions/data_access/BaseDao.java,d\a\da25178987d6b9cf41d502c05767d11ec0f316e9
+i
+9src/main/java/com/adminitions/data_access/FacultyDao.java,8\0\80db7888f4dbb111e4271c52b297fca341970302
+i
+9src/main/java/com/adminitions/data_access/RequestDao.java,c\a\ca44f468c8d75f2ef4af3bad71b2ef243794ba9f

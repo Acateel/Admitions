@@ -40,6 +40,8 @@ public class RequestServlet extends HttpServlet {
             // if request parameter have faculty id
             if(request.getParameter("faculty_id") != null) {
                 int facultiesId = Integer.parseInt(request.getParameter("faculty_id"));
+                int page = getPage(request);
+                request.setAttribute("page", page);
                 // send faculty
                 request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 request.getSession().setAttribute("faculty", facultyDao.findEntityById(facultiesId));
@@ -55,6 +57,22 @@ public class RequestServlet extends HttpServlet {
         } catch (DaoException e) {
             logger.error("Request servlet DaoException");
         }
+    }
+
+    private int getPage(HttpServletRequest request) {
+        int page;
+        if(request.getParameter("page") != null) {
+            try {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+            catch (NumberFormatException exception){
+                page = 1;
+            }
+        }
+        else{
+            page = 1;
+        }
+        return page;
     }
 
     @Override
