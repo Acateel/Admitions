@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "RequestServlet", value = "/Request")
 public class RequestServlet extends HttpServlet {
-    private static final int COUNT_IN_PAGE = 7;
+    private static final int COUNT_IN_PAGE = 6;
     private static final Logger logger = LogManager.getLogger(RequestServlet.class);
     private static final String REQUEST_CHECK_ERROR = "SendRequestError";
     private transient ResourceBundle bundle;

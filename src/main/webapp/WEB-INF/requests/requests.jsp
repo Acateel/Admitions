@@ -65,8 +65,18 @@
     </table>
     <nav>
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="Request?faculty_id=${requestScope.faculty.id}&page=${requestScope.page - 1}">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="Request?faculty_id=${requestScope.faculty.id}&page=${requestScope.page + 1}">Previous</a></li>
+            <li class="page-item">
+                <a class="page-link"
+                   href="Request?faculty_id=${requestScope.faculty.id}&page=${requestScope.page - 1}">
+                    <fmt:message key="previous"/>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   href="Request?faculty_id=${requestScope.faculty.id}&page=${requestScope.page + 1}">
+                    <fmt:message key="next"/>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>
