@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 @WebServlet(name = "RequestServlet", value = "/Request")
 public class RequestServlet extends HttpServlet {
-    private static final int COUNT_IN_PAGE = 5;
+    private static final int COUNT_IN_PAGE = 7;
     private static final Logger logger = LogManager.getLogger(RequestServlet.class);
     private static final String REQUEST_CHECK_ERROR = "SendRequestError";
     private transient ResourceBundle bundle;
@@ -47,7 +47,7 @@ public class RequestServlet extends HttpServlet {
                 request.setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 request.getSession().setAttribute("faculty", facultyDao.findEntityById(facultiesId));
                 // send requests
-                request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId));
+                request.setAttribute("requests", requestDao.findAllWithFaculty(facultiesId, COUNT_IN_PAGE, page));
                 // redirect to requests page
                 request.getRequestDispatcher("/WEB-INF/requests/requests.jsp").forward(request, response);
             }
