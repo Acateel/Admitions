@@ -35,7 +35,6 @@ public class FinalizerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("Finalizer servlet GET method");
-        // called finalizer only once
         User user = (User) request.getSession().getAttribute("User");
         if (user != null || user.getRole() == Role.ADMIN) {
             finalizeRequests(response);
@@ -43,6 +42,7 @@ public class FinalizerServlet extends HttpServlet {
     }
 
     private void finalizeRequests(HttpServletResponse response) throws IOException {
+        // called finalizer only once
         if (!called) {
             try {
                 finalizer.finalizeRequests();
