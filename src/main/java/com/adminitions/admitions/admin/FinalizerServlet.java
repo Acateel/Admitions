@@ -5,6 +5,8 @@ import com.adminitions.admitions.finalizers.Finalizer;
 import com.adminitions.data_access.DaoException;
 import com.adminitions.data_access.FacultyDao;
 import com.adminitions.data_access.RequestDao;
+import com.adminitions.entities.users.Role;
+import com.adminitions.entities.users.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -34,6 +36,13 @@ public class FinalizerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("Finalizer servlet GET method");
         // called finalizer only once
+        User user = (User) request.getSession().getAttribute("User");
+        if (user != null || user.getRole() == Role.ADMIN) {
+            finalizeRequests(response);
+        }
+    }
+
+    private void finalizeRequests(HttpServletResponse response) throws IOException {
         if (!called) {
             try {
                 finalizer.finalizeRequests();
