@@ -70,8 +70,6 @@ f
 6src/main/java/com/adminitions/data_access/UserDao.java,3\9\3908a3ab0eaf1b5385f7e67987c8606cadf892da
 q
 Asrc/main/java/com/adminitions/entities/request/RequestStatus.java,c\a\ca87e42491c31b7eb6b4581fdfca399b0bb4fd9f
-O
-src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
 y
 Isrc/main/java/com/adminitions/admitions/listeners/RequestDaoListener.java,1\e\1e803ac7e4991103ee23c7c9605afeb977f9232d
 y
@@ -130,10 +128,6 @@ m
 =src/test/java/com/adminitions/data_access/RequestDaoTest.java,9\a\9ac6634ff486c3584e429af678c48be889afe429
 r
 Bsrc/test/java/com/adminitions/admitions/auth/LoginServletTest.java,c\5\c5d5beaaebb0af619d5ea377868b18b2a972f38c
-Z
-*.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 o
 ?src/main/java/com/adminitions/admitions/auth/LogoutServlet.java,6\a\6ac71e5471c79d3a061fca2d762c8819e556138c
 k
