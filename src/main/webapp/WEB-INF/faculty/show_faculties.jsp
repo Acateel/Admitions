@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="show" uri="/WEB-INF/customTags.tld" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="locales.content"/>
 <html>
@@ -47,10 +48,13 @@
         <tbody>
         <c:forEach var="faculty" items="${requestScope.faculties}">
             <tr>
+                <show:facultyShow facultyId="1" total="5" budget="5" name="sdafasdf"/>
+                <%--
                 <th scope="row"><c:out value="${faculty.id}"/></th>
                 <td><c:out value="${faculty.name}"/></td>
                 <td><c:out value="${faculty.budgetSeats}"/></td>
                 <td><c:out value="${faculty.totalSeats}"/></td>
+                --%>
                 <td><a href="Request?faculty_id=<c:out value="${faculty.id}"/>"><fmt:message key="request_href"/></a></td>
             </tr>
         </c:forEach>

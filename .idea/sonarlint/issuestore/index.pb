@@ -150,8 +150,6 @@ a
 1src/main/webapp/WEB-INF/requests/send_request.jsp,d\f\df25872b604d49313fa955d79641760bc86307f0
 g
 7src/main/webapp/WEB-INF/admin_panels/change_faculty.jsp,9\7\978bae3e376971a807de2a3313ffca40f715765c
-b
-2src/main/webapp/WEB-INF/faculty/show_faculties.jsp,4\8\483ffc15920d8ca5db1c1dc248333a3b339cf1bc
 Š
 Zsrc/main/java/com/adminitions/admitions/finalizers/rating_score/BasicRattingScoreMath.java,d\a\dace05b73a48c3b1c7fc2d8dc75ef1e651e5be5e
 ‹
@@ -172,3 +170,7 @@ i
 -src/main/webapp/WEB-INF/requests/requests.jsp,7\2\722a2ed0e38ebecb4d40bcf11bbe8bbbac3ed914
 |
 Lsrc/main/java/com/adminitions/admitions/request_servlets/RequestServlet.java,e\8\e8ae35189c673b99ef1f6834da352c21029999a2
+n
+>src/main/java/com/adminitions/admitions/auth/LoginServlet.java,0\a\0ae4f2944cbc92e3ee639cbf43107a6fb50bb31e
+Z
+*.idea/artifacts/Admitions_war_exploded.xml,b\0\b0182ce5e6a9999c0c796f23f52d08c0eb97410a

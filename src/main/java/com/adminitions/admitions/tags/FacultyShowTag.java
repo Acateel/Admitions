@@ -9,17 +9,20 @@ import jakarta.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
 public class FacultyShowTag extends TagSupport {
-    private Faculty faculty;
+    private String facultyId;
+    private String name;
+    private String budget;
+    private String total;
     private static final String TD = "<td>";
     private static final String CLOSE_TD = "</td>";
     @Override
     public int doStartTag() throws JspException {
         JspWriter out = pageContext.getOut();
         StringBuilder builder = new StringBuilder("");
-        builder.append("<th scope=\"row\">").append(faculty.getId()).append("</th>").append("\n");
-        builder.append(TD).append(faculty.getName()).append(CLOSE_TD).append("\n");
-        builder.append(TD).append(faculty.getTotalSeats()).append(CLOSE_TD).append("\n");
-        builder.append(TD).append(faculty.getBudgetSeats()).append(CLOSE_TD).append("\n");
+        builder.append("<th scope=\"row\">").append(facultyId).append("</th>").append("\n");
+        builder.append(TD).append(name).append(CLOSE_TD).append("\n");
+        builder.append(TD).append(budget).append(CLOSE_TD).append("\n");
+        builder.append(TD).append(total).append(CLOSE_TD).append("\n");
 
         try{
             out.print(builder.toString());
@@ -31,11 +34,35 @@ public class FacultyShowTag extends TagSupport {
         return SKIP_BODY;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 }
