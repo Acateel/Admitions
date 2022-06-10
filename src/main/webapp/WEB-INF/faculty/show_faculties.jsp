@@ -48,13 +48,10 @@
         <tbody>
         <c:forEach var="faculty" items="${requestScope.faculties}">
             <tr>
-                <show:facultyShow facultyId="1" total="5" budget="5" name="sdafasdf"/>
-                <%--
                 <th scope="row"><c:out value="${faculty.id}"/></th>
                 <td><c:out value="${faculty.name}"/></td>
                 <td><c:out value="${faculty.budgetSeats}"/></td>
                 <td><c:out value="${faculty.totalSeats}"/></td>
-                --%>
                 <td><a href="Request?faculty_id=<c:out value="${faculty.id}"/>"><fmt:message key="request_href"/></a></td>
             </tr>
         </c:forEach>
